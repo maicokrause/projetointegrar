@@ -8,6 +8,7 @@ import android.speech.tts.TextToSpeech;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -21,14 +22,13 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_speech);
 
         TTS = new TextToSpeech(this, this);
 
         btnFalarTexto = (Button) findViewById(R.id.btn_falar_texto);
 
         edtTexto = (EditText) findViewById(R.id.edt_texto);
-
 
         btnFalarTexto.setOnClickListener(new OnClickListener() {
 
@@ -40,6 +40,10 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
             }
         });
 
+    }
+
+    public void falarTexto(View v){
+        ConvertendoTextoParaVoz(edtTexto.getText().toString());
     }
 
     @Override
@@ -54,6 +58,7 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
 
     @Override
     public void onInit(int status) {
+
         if (status == TextToSpeech.SUCCESS) {
 
             int result = TTS.setLanguage(Locale.getDefault()); // Aqui estou definindo o idioma padrão do celular poderia ser um idioma específico(ex:Locale.US)
@@ -61,7 +66,8 @@ public class SpeechActivity extends Activity implements TextToSpeech.OnInitListe
             if (result == TextToSpeech.LANG_MISSING_DATA || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                 //Aqui você verifica se o aparelho possui suporte ao pacote de voz
                 Log.e("TTS", "Não tem suporte para este idioma");
-                btnFalarTexto.setEnabled(false);
+                TTS.setLanguage(Locale.ENGLISH);
+                //btnFalarTexto.setEnabled(false);
             } else {
                 btnFalarTexto.setEnabled(true);
 
