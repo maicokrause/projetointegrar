@@ -4,14 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <TextView
+
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/viewPager"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content" />-->
+
+    <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Exemplo de ViewPager" />
+        android:text="Escovar os Dentes"
+        android:id="@+id/button"
+        android:layout_gravity="center_horizontal"
+        android:onClick="abrirActivityEscovarDentes" />
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Speech"
+        android:id="@+id/button2"
+        android:layout_gravity="center_horizontal"
+        android:onClick="abrirActivitySpeechText" />
 </LinearLayout>
