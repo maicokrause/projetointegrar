@@ -12,6 +12,5 @@
         android:layout_height="70dp"
         android:id="@+id/imageViewTitle"
         android:adjustViewBounds="false"
-        android:background="#00000000"
-        android:contextClickable="false" />
+        android:background="#00000000"/>
 </LinearLayout>

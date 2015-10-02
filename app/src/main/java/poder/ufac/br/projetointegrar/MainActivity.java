@@ -2,30 +2,20 @@ package poder.ufac.br.projetointegrar;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends Activity implements RecyclerViewOnClickListenerHack {
+public class MainActivity extends Activity {
 
-    private RecyclerView mRecyclerView;
     private List<Tarefa> mList;
     Intent intent;
     private ListView lista;
-    private List<Tarefa> listaTarefas = new ArrayList<>();
+    private List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
     public void abrirActivityEscovarDentes(View view){
 //        String texto = Tarefas.escovarDentesAudio[1]+" teste";
 //        int duracao = Toast.LENGTH_SHORT;
@@ -55,42 +45,26 @@ public class MainActivity extends Activity implements RecyclerViewOnClickListene
         carregaTarefas();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        mRecyclerView = (RecyclerView) findViewById(R.id.rv_list);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
+        AdapterListView adapter = new AdapterListView(this, listaTarefas);
+        lista = (ListView) findViewById(R.id.tarefaListView);
+        lista.setAdapter(adapter);
+        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
+            public void onItemClick(AdapterView<?> adapter, View v, int item, long id) {
 
-                LinearLayoutManager llm = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-                TarefaAdapter adapter = (TarefaAdapter) mRecyclerView.getAdapter();
+                Tarefa t = (Tarefa) adapter.getItemAtPosition(item);
+//        Toast.makeText(this, "Tarefa: "+t.getNome(), Toast.LENGTH_SHORT).show();
+                intent = new Intent(MainActivity.this, TarefaActivity.class);
+                intent.putExtra("imagens", t.getImagens());
+                intent.putExtra("audio", t.getAudio());
+                intent.putExtra("titulo", t.getTitulo());
+                startActivity(intent);
 
-//                if (mList.size() == llm.findLastCompletelyVisibleItemPosition() + 1) {
-//                    List<Tarefa> listAux = listaTarefas;
-//
-//                    for (int i = 0; i < listAux.size(); i++) {
-//                        adapter.addListItem(listAux.get(i), mList.size());
-//                    }
-//                }
             }
+
         });
 
-
-        LinearLayoutManager llm = new LinearLayoutManager(this);
-        llm.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(llm);
-
-
-        mList = listaTarefas;
-        TarefaAdapter adapter = new TarefaAdapter(this, mList);
-        adapter.setRecyclerViewOnClickListenerHack(this);
-        mRecyclerView.setAdapter(adapter);
     }
 
     private void carregaTarefas(){
@@ -99,17 +73,8 @@ public class MainActivity extends Activity implements RecyclerViewOnClickListene
         }
     }
 
-    @Override
     public void onClickListener(View view, int position) {
-        TarefaAdapter adapter = (TarefaAdapter) mRecyclerView.getAdapter();
-        Tarefa t = adapter.getTarefa(position);
-//        Toast.makeText(this, "Tarefa: "+t.getNome(), Toast.LENGTH_SHORT).show();
-        intent = new Intent(this, TarefaActivity.class);
-        intent.putExtra("imagens", t.getImagens());
-        intent.putExtra("audio", t.getAudio());
-        intent.putExtra("titulo", t.getTitulo());
-        startActivity(intent);
-//        adapter.removeListItem(position);
+
     }
 
 }
