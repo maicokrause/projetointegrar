@@ -1,14 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/bugatti_veyron.jpg" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ferrari_laferrari.jpg" charset="windows-1252" />
     <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_launcher.png" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/lamborghini_veneno.jpg" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/maserati_gran_turismo.jpg" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/mclaren.jpg" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/pagani_zonda.jpg" charset="windows-1252" />
-    <file url="file://$PROJECT_DIR$/app/src/main/res/drawable/porsche_911.jpg" charset="windows-1252" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

@@ -55,7 +55,7 @@ public class AdapterImg extends PagerAdapter {
         ll.addView(iv);
 
         TextView tv = new TextView(context);
-        tv.setText("Carro " + (position + 1));
+        tv.setText("Tarefa " + (position + 1));
         ll.addView(tv);
 
 //        String texto = "exemplo toast"+audio[position];

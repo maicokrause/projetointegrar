@@ -3,26 +3,25 @@
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@drawable/background_blue_sky">
 
     <!--<android.support.v4.view.ViewPager-->
         <!--android:id="@+id/viewPager"-->
         <!--android:layout_width="match_parent"-->
         <!--android:layout_height="wrap_content" />-->
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Escovar os Dentes"
-        android:id="@+id/button"
-        android:layout_gravity="center_horizontal"
-        android:onClick="abrirActivityEscovarDentes" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Projeto Integrar"
+        android:id="@+id/textView"
+        android:layout_gravity="center_horizontal" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Speech"
-        android:id="@+id/button2"
-        android:layout_gravity="center_horizontal"
-        android:onClick="abrirActivitySpeechText" />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_list"
+        android:scrollbars="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 </LinearLayout>

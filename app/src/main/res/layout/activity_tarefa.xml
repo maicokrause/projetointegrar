@@ -2,12 +2,16 @@
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent" android:orientation="vertical"
     tools:context="poder.ufac.br.projetointegrar.TarefaActivity"
-    android:id="@+id/tarefaLinearLayout">
+    android:id="@+id/tarefaLinearLayout"
+    android:background="@drawable/background_green_blue_sky"
+    android:weightSum="1">
 
 
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:id="@+id/imageViewTitle"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="false"
+        android:background="#00000000"
+        android:contextClickable="false" />
 </LinearLayout>
