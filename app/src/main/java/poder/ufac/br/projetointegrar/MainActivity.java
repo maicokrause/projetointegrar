@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class MainActivity extends Activity {
     Intent intent;
     private ListView lista;
     private List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
+    ImageView im;
     public void abrirActivityEscovarDentes(View view){
 //        String texto = Tarefas.escovarDentesAudio[1]+" teste";
 //        int duracao = Toast.LENGTH_SHORT;
@@ -43,8 +46,11 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         carregaTarefas();
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        im = (ImageView) findViewById(R.id.tituloAplicativoImageView);
+        im.setImageResource(R.drawable.logo_projeto_integrar);
         AdapterListView adapter = new AdapterListView(this, listaTarefas);
         lista = (ListView) findViewById(R.id.tarefaListView);
         lista.setAdapter(adapter);

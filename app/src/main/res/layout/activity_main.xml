@@ -14,8 +14,7 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/logo_projeto_integrar" />
+        android:id="@+id/tituloAplicativoImageView"/>
 
     <ListView
         android:layout_width="match_parent"

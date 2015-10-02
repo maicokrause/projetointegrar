@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -35,7 +36,7 @@ public class TarefaActivity extends Activity {
         intent = getIntent();
         imagens = intent.getIntArrayExtra("imagens");
         audios = intent.getIntArrayExtra("audio");
-
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tarefa);
 
