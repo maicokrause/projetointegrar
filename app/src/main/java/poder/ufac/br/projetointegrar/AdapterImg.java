@@ -1,6 +1,8 @@
 package poder.ufac.br.projetointegrar;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.support.v4.view.PagerAdapter;
 import android.util.Log;
@@ -14,11 +16,11 @@ import android.widget.Toast;
 
 public class AdapterImg extends PagerAdapter {
     private Context context;
-    private int[] imgs;
+    private Bitmap[] imgs;
     private int[] audio;
     MediaPlayer player;
 
-    public AdapterImg(Context context, int[] imgs, int[] audio){
+    public AdapterImg(Context context, Bitmap[] imgs, int[] audio){
         this.context = context;
         this.imgs = imgs;
         this.audio = audio;
@@ -51,7 +53,10 @@ public class AdapterImg extends PagerAdapter {
         container.addView(ll);
 
         ImageView iv = new ImageView(context);
-        iv.setImageResource(imgs[position]);
+//        Bitmap icon = BitmapFactory.decodeResource(context.getResources(),
+//                imgs[position]);
+//        iv.setImageBitmap(icon);
+        iv.setImageBitmap(imgs[position]);
         ll.addView(iv);
 
         TextView tv = new TextView(context);

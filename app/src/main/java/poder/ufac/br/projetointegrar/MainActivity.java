@@ -16,8 +16,10 @@ public class MainActivity extends Activity {
 
     private List<Tarefa> mList;
     Intent intent;
-    private ListView lista;
+    private ListView listaTarefa;
+    private ListView listaTarefa2;
     private List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
+    private List<Tarefa> listaTarefas2 = new ArrayList<Tarefa>();
     ImageView im;
     public void abrirActivityEscovarDentes(View view){
 //        String texto = Tarefas.escovarDentesAudio[1]+" teste";
@@ -28,6 +30,12 @@ public class MainActivity extends Activity {
         intent = new Intent(this, TarefaActivity.class);
         intent.putExtra("tarefa", Tarefas.ESCOVAR_DENTES);
         intent.putExtra("titulo", R.drawable.escovando_dentes_00);
+        startActivity(intent);
+    }
+
+    public void abreORMlite(View v){
+        intent = new Intent(this, TesteSQLiteActivity.class);
+
         startActivity(intent);
     }
 
@@ -52,9 +60,9 @@ public class MainActivity extends Activity {
         im = (ImageView) findViewById(R.id.tituloAplicativoImageView);
         im.setImageResource(R.drawable.logo_projeto_integrar);
         AdapterListView adapter = new AdapterListView(this, listaTarefas);
-        lista = (ListView) findViewById(R.id.tarefaListView);
-        lista.setAdapter(adapter);
-        lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listaTarefa = (ListView) findViewById(R.id.tarefaListView);
+        listaTarefa.setAdapter(adapter);
+        listaTarefa.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int item, long id) {
@@ -66,17 +74,64 @@ public class MainActivity extends Activity {
                 intent.putExtra("audio", t.getAudio());
                 intent.putExtra("titulo", t.getTitulo());
                 startActivity(intent);
-
             }
-
         });
+        AdapterListView adapter2 = new AdapterListView(this, listaTarefas2);
+        listaTarefa2 = (ListView) findViewById(R.id.tarefa2ListView);
+        listaTarefa2.setAdapter(adapter);
+        listaTarefa2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int item, long id) {
+
+                Tarefa t = (Tarefa) adapter.getItemAtPosition(item);
+//        Toast.makeText(this, "Tarefa: "+t.getNome(), Toast.LENGTH_SHORT).show();
+                intent = new Intent(MainActivity.this, TarefaActivity.class);
+                intent.putExtra("imagens", t.getImagens());
+                intent.putExtra("audio", t.getAudio());
+                intent.putExtra("titulo", t.getTitulo());
+                startActivity(intent);
+            }
+        });
     }
 
     private void carregaTarefas(){
-        for(int i = 0; i<Tarefas.getListaTarefas().length; i++){
-            listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[i]));
-        }
+//        for(int i = 0; i<Tarefas.getListaTarefas().length; i++){
+//            if(i%2 == 1){
+//                Tarefa t = Tarefas.getTarefa(Tarefas.getListaTarefas()[i]);
+//                t.setStatus(true);
+//                listaTarefas.add(t);
+//            }else {
+//                listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[i]));
+//            }
+//        }
+        Tarefa t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
+        t.setStatus(true);
+        listaTarefas.add(t);
+        listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
+        t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
+        t.setStatus(true);
+        listaTarefas.add(t);
+        listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
+        t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
+        t.setStatus(true);
+        listaTarefas.add(t);
+        listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
+        t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
+        t.setStatus(true);
+        listaTarefas2.add(t);
+        listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
+        listaTarefas2.add(t);
+        t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
+        t.setStatus(true);
+        listaTarefas2.add(t);
+        listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
+        listaTarefas2.add(t);
+        t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
+        t.setStatus(true);
+        listaTarefas2.add(t);
+        listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
+        listaTarefas2.add(t);
     }
 
     public void onClickListener(View view, int position) {

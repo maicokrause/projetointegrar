@@ -2,6 +2,8 @@ package poder.ufac.br.projetointegrar;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
@@ -20,7 +22,7 @@ public class TarefaActivity extends Activity {
 //    Bundle bundle = getIntent().getExtras();
     Intent intent;
     private int [] imagens;
-
+    private Bitmap[] bitmap;
     private int[] audios;
 
     public void play(int i){
@@ -36,6 +38,7 @@ public class TarefaActivity extends Activity {
         intent = getIntent();
         imagens = intent.getIntArrayExtra("imagens");
         audios = intent.getIntArrayExtra("audio");
+        converterImagem();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tarefa);
@@ -46,9 +49,9 @@ public class TarefaActivity extends Activity {
 
         //criação do viewPager
         ViewPager vp = new ViewPager(this); //(ViewPager) findViewById(R.id.viewPager);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         vp.setLayoutParams(lp);
-        vp.setAdapter(new AdapterImg(this, imagens, audios));
+        vp.setAdapter(new AdapterImg(this, bitmap, audios));
         //barra que contem as imagens
         ll = (LinearLayout) findViewById(R.id.tarefaLinearLayout);
 
@@ -94,6 +97,12 @@ public class TarefaActivity extends Activity {
         play(audios[0]);
     }
 
+    public void converterImagem(){
+        bitmap = new Bitmap[imagens.length];
+        for(int i=0; i < imagens.length; i++){
+           bitmap[i] = BitmapFactory.decodeResource(this.getResources(), imagens[i]);
+        }
+    }
 
 
 //    @Override

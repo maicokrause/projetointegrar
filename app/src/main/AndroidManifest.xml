@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:largeHeap="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
@@ -28,6 +28,10 @@
         <activity
             android:name=".SpeechActivity"
             android:label="@string/title_activity_speech" >
+        </activity>
+        <activity
+            android:name=".TesteSQLiteActivity"
+            android:label="@string/title_activity_teste_sqlite" >
         </activity>
     </application>
 

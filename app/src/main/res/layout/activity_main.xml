@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayout1"
     android:layout_width="match_parent"
@@ -14,12 +14,39 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:id="@+id/tituloAplicativoImageView"/>
+        android:id="@+id/tituloAplicativoImageView"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp" />
 
     <ListView
-        android:layout_width="match_parent"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
-        android:id="@+id/tarefaListView" />
+        android:id="@+id/tarefaListView"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="0dp"
+        android:layout_below="@+id/tituloAplicativoImageView" />
+
+    <ListView
+        android:layout_width="280dp"
+        android:layout_height="100dp"
+        android:id="@+id/tarefa2ListView"
+        android:layout_toRightOf="@+id/tarefaListView"
+        android:layout_below="@+id/tituloAplicativoImageView" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Button"
+        android:id="@+id/button"
+        android:layout_below="@+id/tarefa2ListView"
+        android:layout_alignRight="@+id/tarefa2ListView"
+        android:layout_alignEnd="@+id/tarefa2ListView"
+        android:layout_marginRight="66dp"
+        android:layout_marginEnd="66dp"
+        android:layout_marginTop="42dp"
+        android:onClick="abreORMlite" />
 
 
-</LinearLayout>
+</RelativeLayout>

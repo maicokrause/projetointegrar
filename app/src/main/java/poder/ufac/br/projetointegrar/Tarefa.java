@@ -6,6 +6,8 @@ import java.io.Serializable;
  * Created by Levi Cacau on 01/10/2015.
  */
 public class Tarefa implements Serializable{
+    private Long id;
+    private boolean status;
     private int miniatura;
     private String nome;
     private int[] imagens;
@@ -20,6 +22,21 @@ public class Tarefa implements Serializable{
         this.titulo = titulo;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     public int getMiniatura() {
         return miniatura;
