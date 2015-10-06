@@ -8,17 +8,28 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import poder.ufac.br.projetointegrar.cdp.Discipline;
+import poder.ufac.br.projetointegrar.cdp.Tarefa;
+import poder.ufac.br.projetointegrar.dao.DatabaseHelper;
+import poder.ufac.br.projetointegrar.dao.TarefaDao;
+
 public class MainActivity extends Activity {
 
-    private List<Tarefa> mList;
+    //ORMlite
+    private DatabaseHelper dh;
+    private TarefaDao tarefaDao;
+
     Intent intent;
+    private List<Tarefa> mList;
     private ListView listaTarefa;
-    private ListView listaTarefa2;
     private List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
+    private ListView listaTarefa2;
     private List<Tarefa> listaTarefas2 = new ArrayList<Tarefa>();
     ImageView im;
     public void abrirActivityEscovarDentes(View view){
@@ -33,8 +44,19 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    public void abreORMlite(View v){
-        intent = new Intent(this, TesteSQLiteActivity.class);
+    public void abreListaCompromissos(View v){
+        intent = new Intent(this, ListarCompromissoActivity.class);
+
+        startActivity(intent);
+    }
+
+    public void calendarioActivity(View v){
+        intent = new Intent(this, CalendarioActivity.class);
+        startActivity(intent);
+    }
+
+    public void abreListaStudents(View v){
+        intent = new Intent(this, StudyListActivity.class);
 
         startActivity(intent);
     }
@@ -56,6 +78,13 @@ public class MainActivity extends Activity {
         carregaTarefas();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+
+        //ORMlite
+        dh = new DatabaseHelper(MainActivity.this);
+        try {
+            tarefaDao = new TarefaDao(dh.getConnectionSource());
+        } catch (SQLException e) {e.printStackTrace();}
+
         setContentView(R.layout.activity_main);
         im = (ImageView) findViewById(R.id.tituloAplicativoImageView);
         im.setImageResource(R.drawable.logo_projeto_integrar);
@@ -95,6 +124,26 @@ public class MainActivity extends Activity {
         });
     }
 
+    public void addTarefaBanco(View v1){
+        List<Tarefa> listaT = new ArrayList<Tarefa>();
+        listaT.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[0]));
+        listaT.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
+
+        //ORMlite
+        dh = new DatabaseHelper(MainActivity.this);
+        try {
+            tarefaDao = new TarefaDao(dh.getConnectionSource());
+        // CREATE
+            for(Tarefa t : listaT){
+                tarefaDao.create(t);
+            }
+        } catch (SQLException e) {
+            Toast.makeText(this, "Erro ao salvar no banco", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+        Toast.makeText(this, "Tarefas adicionadas no banco", Toast.LENGTH_SHORT).show();
+    }
+
     private void carregaTarefas(){
 //        for(int i = 0; i<Tarefas.getListaTarefas().length; i++){
 //            if(i%2 == 1){
@@ -106,29 +155,29 @@ public class MainActivity extends Activity {
 //            }
 //        }
         Tarefa t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
-        t.setStatus(true);
+
         listaTarefas.add(t);
         listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
         t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
-        t.setStatus(true);
+
         listaTarefas.add(t);
         listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
         t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
-        t.setStatus(true);
+
         listaTarefas.add(t);
         listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
         t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
-        t.setStatus(true);
+
         listaTarefas2.add(t);
         listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
         listaTarefas2.add(t);
         t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
-        t.setStatus(true);
+
         listaTarefas2.add(t);
         listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
         listaTarefas2.add(t);
         t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
-        t.setStatus(true);
+
         listaTarefas2.add(t);
         listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
         listaTarefas2.add(t);

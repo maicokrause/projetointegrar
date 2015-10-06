@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="poder.ufac.br.projetointegrar.ListarCompromissoActivity">
+    <!--<item android:id="@+id/action_settings" android:title="@string/action_settings"-->
+        <!--android:orderInCategory="100" app:showAsAction="never" />-->
+    <!--<item-->
+        <!--android:id="@+id/item1"-->
+        <!--android:title="Item 1"-->
+        <!--app:showAsAction="always" />-->
+
+    <item
+        android:id="@+id/itemMenuAdicionarCompromisso"
+        android:icon="@drawable/ic_launcher"
+        android:title="Adicionar Tarefa"
+        app:showAsAction="ifRoom|withText" />
+
+    <!--<item-->
+        <!--android:id="@+id/item3"-->
+        <!--android:title="Item 3"-->
+        <!--app:showAsAction="never" />-->
+
+    <!--<item-->
+        <!--android:id="@+id/item4"-->
+        <!--android:title="Item 4"-->
+        <!--app:showAsAction="never" />-->
+</menu>

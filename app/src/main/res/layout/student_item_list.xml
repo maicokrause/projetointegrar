@@ -5,39 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="5sp">
-    <ImageView
-        android:id="@+id/miniaturaImageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:id="@+id/nomeTarefaTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:textColor="#FF000000"
-        android:layout_gravity="center_horizontal"
-        android:text="Tarefa"
-        android:layout_below="@+id/miniaturaImageView"
-        android:layout_centerHorizontal="true" />
-
-    <TextView
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Completa"
-        android:id="@+id/completaTextView"
-        android:background="#218eff"
-        android:textColor="#ffffff"
-        android:layout_alignTop="@+id/miniaturaImageView"
-        android:layout_alignRight="@+id/miniaturaImageView"
-        android:layout_alignEnd="@+id/miniaturaImageView"
-        android:layout_marginTop="37dp"
-        android:visibility="invisible"
-        android:textAlignment="center" />
 
 
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewNomeStudent"
+            android:layout_gravity="center_horizontal" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewIdStudent" />
+    </LinearLayout>
 </RelativeLayout>

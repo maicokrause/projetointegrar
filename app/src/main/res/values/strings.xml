@@ -6,4 +6,8 @@
     <string name="title_activity_tarefa">TarefaActivity</string>
     <string name="title_activity_speech">SpeechActivity</string>
     <string name="title_activity_teste_sqlite">TesteSQLiteActivity</string>
+    <string name="title_activity_study_list">StudyListActivity</string>
+    <string name="title_activity_adicionar_compromisso">AdicionarCompromissoActivity</string>
+    <string name="title_activity_adicionar_compromissos">AdicionarCompromissosActivity</string>
+    <string name="title_activity_calendario">CalendarioActivity</string>
 </resources>

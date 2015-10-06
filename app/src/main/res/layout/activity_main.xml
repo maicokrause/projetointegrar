@@ -30,23 +30,30 @@
 
     <ListView
         android:layout_width="280dp"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:id="@+id/tarefa2ListView"
         android:layout_toRightOf="@+id/tarefaListView"
         android:layout_below="@+id/tituloAplicativoImageView" />
+
+    <ImageView
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/icon_config"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="calendarioActivity" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="New Button"
         android:id="@+id/button"
-        android:layout_below="@+id/tarefa2ListView"
-        android:layout_alignRight="@+id/tarefa2ListView"
-        android:layout_alignEnd="@+id/tarefa2ListView"
-        android:layout_marginRight="66dp"
-        android:layout_marginEnd="66dp"
-        android:layout_marginTop="42dp"
-        android:onClick="abreORMlite" />
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/imageView"
+        android:layout_toStartOf="@+id/imageView"
+        android:onClick="addTarefaBanco" />
 
 
 </RelativeLayout>

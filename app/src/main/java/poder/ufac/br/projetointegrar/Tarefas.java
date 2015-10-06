@@ -1,5 +1,7 @@
 package poder.ufac.br.projetointegrar;
 
+import poder.ufac.br.projetointegrar.cdp.Tarefa;
+
 /**
  * Created by Levi Cacau on 30/09/2015.
  */

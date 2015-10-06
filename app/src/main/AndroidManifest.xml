@@ -33,6 +33,25 @@
             android:name=".TesteSQLiteActivity"
             android:label="@string/title_activity_teste_sqlite" >
         </activity>
+        <activity
+            android:name=".StudyListActivity"
+            android:label="@string/title_activity_study_list" >
+        </activity>
+        <activity
+            android:name=".ListarCompromissoActivity"
+            android:label="@string/title_activity_adicionar_compromisso" >
+        </activity>
+        <activity
+            android:name=".AdicionarCompromissosActivity"
+            android:label="@string/title_activity_adicionar_compromissos" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ListarCompromissoActivity" />
+        </activity>
+        <activity
+            android:name=".CalendarioActivity"
+            android:label="@string/title_activity_calendario" >
+        </activity>
     </application>
 
 </manifest>

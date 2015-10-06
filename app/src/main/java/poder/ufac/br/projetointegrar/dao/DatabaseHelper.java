@@ -1,7 +1,5 @@
 package poder.ufac.br.projetointegrar.dao;
 
-import java.sql.SQLException;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -9,13 +7,15 @@ import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
 
-import poder.ufac.br.projetointegrar.cdp.Discipline;
-import poder.ufac.br.projetointegrar.cdp.Student;
+import java.sql.SQLException;
+
+import poder.ufac.br.projetointegrar.cdp.Compromisso;
+import poder.ufac.br.projetointegrar.cdp.Tarefa;
 
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-	private static final String databaseName = "school.db";
-	private static final int databaseVersion = 15;
+	private static final String databaseName = "integrar.db";
+	private static final int databaseVersion = 2;
 	
 	public DatabaseHelper(Context context) {
 		super(context, databaseName, null, databaseVersion);
@@ -25,8 +25,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase sd, ConnectionSource cs) {
 		try {
-			TableUtils.createTable(cs, Student.class);
-			TableUtils.createTable(cs, Discipline.class);
+			TableUtils.createTable(cs, Compromisso.class);
+			TableUtils.createTable(cs, Tarefa.class);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -35,8 +35,8 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	@Override
 	public void onUpgrade(SQLiteDatabase sd, ConnectionSource cs, int oldVersion, int newVersion) {
 		try {
-			TableUtils.dropTable(cs, Student.class, true);
-			TableUtils.dropTable(cs, Discipline.class, true);
+			TableUtils.dropTable(cs, Compromisso.class, true);
+			TableUtils.dropTable(cs, Tarefa.class, true);
 			onCreate(sd, cs);
 		}
 		catch(SQLException e) {

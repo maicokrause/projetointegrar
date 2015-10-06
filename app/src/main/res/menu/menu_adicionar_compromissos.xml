@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="poder.ufac.br.projetointegrar.AdicionarCompromissosActivity">
+
+    <item
+        android:id="@+id/itemMenuCancelarCompromisso"
+        android:icon="@drawable/ic_launcher"
+        android:title="Cancelar"
+        app:showAsAction="ifRoom|withText" />
+
+    <item
+        android:id="@+id/itemMenuSalvarCompromisso"
+        android:icon="@drawable/ic_launcher"
+        android:title="Salvar Tarefa"
+        app:showAsAction="ifRoom|withText" />
+
+</menu>
