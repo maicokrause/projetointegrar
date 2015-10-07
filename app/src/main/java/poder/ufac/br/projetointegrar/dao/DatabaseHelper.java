@@ -15,7 +15,7 @@ import poder.ufac.br.projetointegrar.cdp.Tarefa;
 
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final String databaseName = "integrar.db";
-	private static final int databaseVersion = 2;
+	private static final int databaseVersion = 3;
 	
 	public DatabaseHelper(Context context) {
 		super(context, databaseName, null, databaseVersion);

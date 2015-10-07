@@ -52,6 +52,10 @@
             android:name=".CalendarioActivity"
             android:label="@string/title_activity_calendario" >
         </activity>
+        <activity
+            android:name=".AgendaActivity"
+            android:label="@string/title_activity_agenda" >
+        </activity>
     </application>
 
 </manifest>

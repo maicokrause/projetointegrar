@@ -42,7 +42,7 @@ public class AdapterCompromissoListView extends BaseAdapter{
         View v = mInflater.inflate(R.layout.compromisso_item_list, null);
         nomeTarefa = ((TextView) v.findViewById(R.id.textViewCompromissoNomeTarefaItem));
         horario = (TextView) v.findViewById(R.id.textViewCompromissoHorarioItem);
-        miniatura = (ImageView) v.findViewById(R.id.imageViewMiniaturaAdicionarCompromisso);
+        miniatura = (ImageView) v.findViewById(R.id.imageViewCompromissoItem);
         //pega os dados da lista
         //e define os valores nos itens.
         Compromisso item = itens.get(position);

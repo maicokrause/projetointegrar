@@ -20,40 +20,39 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="0dp" />
 
-    <ListView
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/tarefaListView"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
-        android:layout_below="@+id/tituloAplicativoImageView" />
+    <!--<ListView-->
+        <!--android:layout_width="280dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/tarefaListView"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_marginLeft="0dp"-->
+        <!--android:layout_below="@+id/tituloAplicativoImageView" />-->
 
-    <ListView
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/tarefa2ListView"
-        android:layout_toRightOf="@+id/tarefaListView"
-        android:layout_below="@+id/tituloAplicativoImageView" />
+    <!--<ListView-->
+        <!--android:layout_width="280dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/tarefa2ListView"-->
+        <!--android:layout_toRightOf="@+id/tarefaListView"-->
+        <!--android:layout_below="@+id/tituloAplicativoImageView" />-->
 
     <ImageView
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:id="@+id/imageView"
         android:src="@drawable/icon_config"
-        android:layout_alignParentTop="true"
+        android:onClick="calendarioActivity"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="calendarioActivity" />
+        android:layout_alignParentEnd="true" />
 
-    <Button
+    <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/button"
-        android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/imageView"
-        android:layout_toStartOf="@+id/imageView"
-        android:onClick="addTarefaBanco" />
+        android:id="@+id/imageView2"
+        android:src="@drawable/icon_task"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="abrirAgendaActivity" />
 
 
 </RelativeLayout>

@@ -26,11 +26,11 @@ public class MainActivity extends Activity {
     private TarefaDao tarefaDao;
 
     Intent intent;
-    private List<Tarefa> mList;
-    private ListView listaTarefa;
-    private List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
-    private ListView listaTarefa2;
-    private List<Tarefa> listaTarefas2 = new ArrayList<Tarefa>();
+//    private List<Tarefa> mList;
+//    private ListView listaTarefa;
+//    private List<Tarefa> listaTarefas = new ArrayList<Tarefa>();
+//    private ListView listaTarefa2;
+//    private List<Tarefa> listaTarefas2 = new ArrayList<Tarefa>();
     ImageView im;
     public void abrirActivityEscovarDentes(View view){
 //        String texto = Tarefas.escovarDentesAudio[1]+" teste";
@@ -61,15 +61,8 @@ public class MainActivity extends Activity {
         startActivity(intent);
     }
 
-    public void abrirActivityNaEscola(View view){
-        intent = new Intent(this, TarefaActivity.class);
-        intent.putExtra("tarefa", Tarefas.NA_ESCOLA);
-        intent.putExtra("titulo", R.drawable.na_escola_00);
-        startActivity(intent);
-    }
-
-    public void abrirActivitySpeechText(View view){
-        intent = new Intent(this, SpeechActivity.class);
+    public void abrirAgendaActivity(View view){
+        intent = new Intent(this, AgendaActivity.class);
         startActivity(intent);
     }
 
@@ -79,55 +72,63 @@ public class MainActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
 
+        setContentView(R.layout.activity_main);
+        im = (ImageView) findViewById(R.id.tituloAplicativoImageView);
+        im.setImageResource(R.drawable.logo_projeto_integrar);
+
+//        AdapterListView adapter = new AdapterListView(this, listaTarefas);
+//        listaTarefa = (ListView) findViewById(R.id.tarefaListView);
+//        listaTarefa.setAdapter(adapter);
+//        listaTarefa.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> adapter, View v, int item, long id) {
+//
+//                Tarefa t = (Tarefa) adapter.getItemAtPosition(item);
+////        Toast.makeText(this, "Tarefa: "+t.getNome(), Toast.LENGTH_SHORT).show();
+//                intent = new Intent(MainActivity.this, TarefaActivity.class);
+//                intent.putExtra("imagens", t.getImagens());
+//                intent.putExtra("audio", t.getAudio());
+//                intent.putExtra("titulo", t.getTitulo());
+//                startActivity(intent);
+//            }
+//        });
+//        AdapterListView adapter2 = new AdapterListView(this, listaTarefas2);
+//        listaTarefa2 = (ListView) findViewById(R.id.tarefa2ListView);
+//        listaTarefa2.setAdapter(adapter);
+//        listaTarefa2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//
+//            @Override
+//            public void onItemClick(AdapterView<?> adapter, View v, int item, long id) {
+//
+//                Tarefa t = (Tarefa) adapter.getItemAtPosition(item);
+////        Toast.makeText(this, "Tarefa: "+t.getNome(), Toast.LENGTH_SHORT).show();
+//                intent = new Intent(MainActivity.this, TarefaActivity.class);
+//                intent.putExtra("imagens", t.getImagens());
+//                intent.putExtra("audio", t.getAudio());
+//                intent.putExtra("titulo", t.getTitulo());
+//                startActivity(intent);
+//            }
+//        });
+
         //ORMlite
         dh = new DatabaseHelper(MainActivity.this);
         try {
             tarefaDao = new TarefaDao(dh.getConnectionSource());
+            List<Tarefa> listaT = tarefaDao.queryForAll();
+            if(listaT.isEmpty()){
+                addTarefaBanco();
+            }
+
         } catch (SQLException e) {e.printStackTrace();}
-
-        setContentView(R.layout.activity_main);
-        im = (ImageView) findViewById(R.id.tituloAplicativoImageView);
-        im.setImageResource(R.drawable.logo_projeto_integrar);
-        AdapterListView adapter = new AdapterListView(this, listaTarefas);
-        listaTarefa = (ListView) findViewById(R.id.tarefaListView);
-        listaTarefa.setAdapter(adapter);
-        listaTarefa.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View v, int item, long id) {
-
-                Tarefa t = (Tarefa) adapter.getItemAtPosition(item);
-//        Toast.makeText(this, "Tarefa: "+t.getNome(), Toast.LENGTH_SHORT).show();
-                intent = new Intent(MainActivity.this, TarefaActivity.class);
-                intent.putExtra("imagens", t.getImagens());
-                intent.putExtra("audio", t.getAudio());
-                intent.putExtra("titulo", t.getTitulo());
-                startActivity(intent);
-            }
-        });
-        AdapterListView adapter2 = new AdapterListView(this, listaTarefas2);
-        listaTarefa2 = (ListView) findViewById(R.id.tarefa2ListView);
-        listaTarefa2.setAdapter(adapter);
-        listaTarefa2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View v, int item, long id) {
-
-                Tarefa t = (Tarefa) adapter.getItemAtPosition(item);
-//        Toast.makeText(this, "Tarefa: "+t.getNome(), Toast.LENGTH_SHORT).show();
-                intent = new Intent(MainActivity.this, TarefaActivity.class);
-                intent.putExtra("imagens", t.getImagens());
-                intent.putExtra("audio", t.getAudio());
-                intent.putExtra("titulo", t.getTitulo());
-                startActivity(intent);
-            }
-        });
     }
 
-    public void addTarefaBanco(View v1){
+    public void addTarefaBanco(){
         List<Tarefa> listaT = new ArrayList<Tarefa>();
-        listaT.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[0]));
-        listaT.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
+        for(int i = 0; i<Tarefas.getListaTarefas().length; i++){
+            listaT.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[i]));
+
+        }
 
         //ORMlite
         dh = new DatabaseHelper(MainActivity.this);
@@ -144,7 +145,7 @@ public class MainActivity extends Activity {
         Toast.makeText(this, "Tarefas adicionadas no banco", Toast.LENGTH_SHORT).show();
     }
 
-    private void carregaTarefas(){
+    private void carregaTarefas() {
 //        for(int i = 0; i<Tarefas.getListaTarefas().length; i++){
 //            if(i%2 == 1){
 //                Tarefa t = Tarefas.getTarefa(Tarefas.getListaTarefas()[i]);
@@ -154,37 +155,32 @@ public class MainActivity extends Activity {
 //                listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[i]));
 //            }
 //        }
-        Tarefa t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
 
-        listaTarefas.add(t);
-        listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
-        t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
-
-        listaTarefas.add(t);
-        listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
-        t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
-
-        listaTarefas.add(t);
-        listaTarefas.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
-        t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
-
-        listaTarefas2.add(t);
-        listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
-        listaTarefas2.add(t);
-        t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
-
-        listaTarefas2.add(t);
-        listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
-        listaTarefas2.add(t);
-        t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
-
-        listaTarefas2.add(t);
-        listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
-        listaTarefas2.add(t);
-    }
-
-    public void onClickListener(View view, int position) {
-
+        //ORMlite
+//        dh = new DatabaseHelper(MainActivity.this);
+//        try {
+//            tarefaDao = new TarefaDao(dh.getConnectionSource());
+//            listaTarefas = tarefaDao.queryForAll();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//            Tarefa t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
+//
+//            listaTarefas2.add(t);
+//            listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
+//            listaTarefas2.add(t);
+//            t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
+//
+//            listaTarefas2.add(t);
+//            listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
+//            listaTarefas2.add(t);
+//            t = Tarefas.getTarefa(Tarefas.getListaTarefas()[0]);
+//
+//            listaTarefas2.add(t);
+//            listaTarefas2.add(Tarefas.getTarefa(Tarefas.getListaTarefas()[1]));
+//            listaTarefas2.add(t);
+//
     }
 
 }

@@ -11,7 +11,9 @@ import android.widget.DatePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class CalendarioActivity extends ActionBarActivity {
     private CalendarView calendar;
@@ -25,13 +27,15 @@ public class CalendarioActivity extends ActionBarActivity {
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String selectedDate = sdf.format(new Date(calendar.getDate()));
-                Toast.makeText(CalendarioActivity.this, selectedDate, Toast.LENGTH_SHORT).show();
+                Toast.makeText(CalendarioActivity.this, "Data: " + new Date(calendar.getDate()), Toast.LENGTH_SHORT).show();
                 intent = new Intent(CalendarioActivity.this, ListarCompromissoActivity.class);
                 intent.putExtra("data", calendar.getDate());
                 startActivity(intent);
-            }//met
+            }
         });
         //calendar.setDate((new Date(115,2,2)).getTime());
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
     }
 
     public void getCalendarDay(View v){
@@ -49,16 +53,21 @@ public class CalendarioActivity extends ActionBarActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(item.getItemId()){
+            case android.R.id.home:
+                finish();
+                break;
+            case R.id.itemMenuCalendarioSelecionarDia:
+                Calendar c = Calendar.getInstance();
+                c.setTime(new Date(calendar.getDate())); //colocando o objeto Date no Calendar
+                c.set(Calendar.HOUR_OF_DAY, 0); //zerando as horas, minuots e segundos..
+                c.set(Calendar.MINUTE, 0);
+                c.set(Calendar.SECOND, 0);
+                Toast.makeText(CalendarioActivity.this, "Data: "+c.getTime(), Toast.LENGTH_SHORT).show();
+                intent = new Intent(CalendarioActivity.this, ListarCompromissoActivity.class);
+                intent.putExtra("data", c.getTime().getTime());
+                startActivity(intent);
         }
-
-        return super.onOptionsItemSelected(item);
+        return true;
     }
 }

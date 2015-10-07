@@ -1,12 +1,15 @@
 package poder.ufac.br.projetointegrar.cdp;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 
 /**
  * Created by Levi Cacau on 01/10/2015.
  */
+@DatabaseTable(tableName="tarefa")
 public class Tarefa implements Serializable{
     @DatabaseField(generatedId=true)
     private Long id;
@@ -15,9 +18,9 @@ public class Tarefa implements Serializable{
     private int miniatura;
     @DatabaseField
     private String nome;
-    @DatabaseField
+    @DatabaseField(dataType= DataType.SERIALIZABLE)
     private int[] imagens;
-    @DatabaseField
+    @DatabaseField(dataType=DataType.SERIALIZABLE)
     private int[] audio;
     @DatabaseField
     private int titulo;
