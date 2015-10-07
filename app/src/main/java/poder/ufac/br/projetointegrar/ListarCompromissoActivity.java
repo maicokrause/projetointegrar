@@ -2,13 +2,22 @@ package poder.ufac.br.projetointegrar;
 
 import android.app.ActionBar;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+
+import java.sql.SQLException;
+import java.util.List;
+
+import poder.ufac.br.projetointegrar.cdp.Compromisso;
 import poder.ufac.br.projetointegrar.dao.CompromissoDao;
 import poder.ufac.br.projetointegrar.dao.DatabaseHelper;
 
@@ -17,6 +26,7 @@ public class ListarCompromissoActivity extends ActionBarActivity {
     private DatabaseHelper dh;
     private CompromissoDao compromissoDao;
     private ListView listViewCompromissos;
+    private List<Compromisso> listaCompromissos;
     Intent intent;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,26 +35,34 @@ public class ListarCompromissoActivity extends ActionBarActivity {
         ActionBar ab = getActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         listViewCompromissos = (ListView) findViewById(R.id.listViewListarCompromissos);
+        //ORMlite
+        dh = new DatabaseHelper(this);
+        try {
+            compromissoDao = new CompromissoDao(dh.getConnectionSource());
 
+            listaCompromissos = compromissoDao.queryForAll();
 
-//        Car car = new Car(1, "octavia");
-//        car.setManufactured(Calendar.getInstance().getTime());
-//        Dao<Car, Integer> carDao = getHelper().getCarDao();
-//
-//        carDao.create(car);
-//
-//        QueryBuilder<Car, Integer> carQb = carDao.queryBuilder();
-//
-//        Calendar yesteday = Calendar.getInstance();
-//        yesteday.add(Calendar.DATE, -1);
-//
-//        Calendar tommorrow = Calendar.getInstance();
-//        yesteday.add(Calendar.DATE, 1);
-//
-//        carQb.where().between("manufactured", yesteday.getTime(), tommorrow.getTime());
-//        PreparedQuery<Car> query = carQb.prepare();
-//
-//        List<Car> cars = carDao.query(query);
+            QueryBuilder<Compromisso, Integer> queryBuilder = compromissoDao.queryBuilder();
+
+            queryBuilder.where().eq("data", getIntent().getLongExtra("data",1L));
+            PreparedQuery<Compromisso> query = queryBuilder.prepare();
+
+            listaCompromissos = compromissoDao.query(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        AdapterCompromissoListView adapter = new AdapterCompromissoListView(this, listaCompromissos);
+        listViewCompromissos.setAdapter(adapter);
+        listViewCompromissos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int item, long id) {
+                Compromisso c = (Compromisso) adapter.getItemAtPosition(item);
+                intent = new Intent(ListarCompromissoActivity.this, AdicionarCompromissosActivity.class);
+                intent.putExtra("compromisso", c);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
