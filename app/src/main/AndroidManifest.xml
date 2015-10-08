@@ -40,6 +40,9 @@
         <activity
             android:name=".ListarCompromissoActivity"
             android:label="@string/title_activity_adicionar_compromisso" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CalendarioActivity" />
         </activity>
         <activity
             android:name=".AdicionarCompromissosActivity"
@@ -51,10 +54,16 @@
         <activity
             android:name=".CalendarioActivity"
             android:label="@string/title_activity_calendario" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".AgendaActivity"
             android:label="@string/title_activity_agenda" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
     </application>
 

@@ -32,8 +32,6 @@ public class AdapterImg extends PagerAdapter {
         return imgs.length;
     }
 
-
-
     @Override
     public boolean isViewFromObject(View view, Object obj) {
         // TODO Auto-generated method stub

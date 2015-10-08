@@ -7,10 +7,15 @@ import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 public class TarefaActivity extends Activity {
     MediaPlayer player;
@@ -24,7 +29,9 @@ public class TarefaActivity extends Activity {
     private int [] imagens;
     private Bitmap[] bitmap;
     private int[] audios;
-
+    private int posicaoAnterior = -1;
+    private int posicaoProximo = 1;
+    ViewPager vp;
     public void play(int i){
         player= MediaPlayer.create(this,i);
         player.start();
@@ -47,25 +54,84 @@ public class TarefaActivity extends Activity {
         ivTitulo = (ImageView) findViewById(R.id.imageViewTitle);
         ivTitulo.setImageResource(intent.getIntExtra("titulo",0));
 
+        anterior = (ImageView) findViewById(R.id.imageViewTarefaAnterior);
+        final GestureDetector gdt = new GestureDetector(this, new GestureListener());
+        anterior.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (gdt.onTouchEvent(event)) {
+                    return false;
+                }
+                return true;
+            }
+        });
+        anterior.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (posicaoAnterior > -1) {
+                    vp.setCurrentItem(posicaoAnterior);
+                }
+            }
+        });
+        proximo = (ImageView) findViewById(R.id.imageViewTarefaProximo);
+        proximo.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (gdt.onTouchEvent(event)) {
+                    return false;
+                }
+                return true;
+            }
+        });
+        anterior.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(posicaoProximo > -1){
+                    vp.setCurrentItem(posicaoProximo);
+                }
+            }
+        });
+        proximo.setImageBitmap(bitmap[1]);
         //criação do viewPager
-        ViewPager vp = new ViewPager(this); //(ViewPager) findViewById(R.id.viewPager);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        vp.setLayoutParams(lp);
-        vp.setAdapter(new AdapterImg(this, bitmap, audios));
-        //barra que contem as imagens
-        ll = (LinearLayout) findViewById(R.id.tarefaLinearLayout);
+        vp = (ViewPager) findViewById(R.id.viewPagerTarefa); //new ViewPager(this); //
+//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        vp.setLayoutParams(lp);
+        AdapterImg adapterImg = new AdapterImg(this, bitmap, audios);
 
+        vp.setAdapter(adapterImg);
+        //barra que contem as imagens
+        //ll = (LinearLayout) findViewById(R.id.tarefaLinearLayoutHorizontal);
+//        vp.setCurrentItem();
+        //adapter.
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
-            public void onPageSelected(int posicao) {
+            public void onPageSelected(final int posicao) {
                 play(audios[posicao]);
-//                if(posicao > 0) {
-//                    anterior.setImageResource(imagens[posicao - 1]);
-//                }
-//                if(posicao < imagens.length -1){
-//                    proximo.setImageResource(imagens[posicao + 1]);
-//                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (posicao > 0) {
+                            anterior.setImageBitmap(bitmap[posicao - 1]);
+                            posicaoAnterior = posicao - 1;
+                            if (posicao < bitmap.length - 1) {
+                                proximo.setImageBitmap(bitmap[posicao + 1]);
+                                posicaoProximo = posicao + 1;
+                            }else {
+                                if (posicao == bitmap.length - 1) {
+                                    proximo.setImageBitmap(BitmapFactory.decodeResource(getResources(), 0));
+                                    posicaoProximo = -1;
+                                }
+                            }
+                        }else {
+                            if (posicao == 0) {
+                                anterior.setImageBitmap(BitmapFactory.decodeResource(getResources(), 0));
+                                posicaoAnterior = -1;
+                            }
+                        }
+                    }
+                });
+
 //                String texto = getIntent().getStringExtra("teste")+" teste"+getIntent().hasExtra("IMAGENS");
 //                int duracao = Toast.LENGTH_SHORT;
 //                Toast toast = Toast.makeText(TarefaActivity.this, texto, duracao);
@@ -83,17 +149,15 @@ public class TarefaActivity extends Activity {
             }
         });
 
-//        anterior = new ImageView(TarefaActivity.this);
-//        anterior.setAdjustViewBounds(true);
-//        anterior.setImageResource(imagens[0]);
-//        ll.addView(anterior);
+//        proximo.setOnTouchListener(new View.OnTouchListener() {
+//            GestureDetector gestureDetector = new GestureDetector(new SwingGestureDetection((mContext), image, a));
+//
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                return gestureDetector.onTouchEvent(event);
+//            }
+//        });
 
-        ll.addView(vp);
-
-//        proximo = new ImageView(TarefaActivity.this);
-//        proximo.setAdjustViewBounds(true);
-//        proximo.setImageResource(imagens[0]);
-//        ll.addView(proximo);
         play(audios[0]);
     }
 
@@ -104,26 +168,41 @@ public class TarefaActivity extends Activity {
         }
     }
 
+    public void imagemAnterior(View v){
+        if(posicaoAnterior > -1){
+            vp.setCurrentItem(posicaoAnterior);
+        }
+    }
+    public void imagemProxima(View v){
+        if(posicaoProximo > -1){
+            vp.setCurrentItem(posicaoProximo);
+        }
+    }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_tarefa, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
+    private static final int SWIPE_MIN_DISTANCE = 120;
+    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
+    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+//                Toast.makeText(TarefaActivity.this, "Right to left", Toast.LENGTH_SHORT).show();
+                if(posicaoProximo > -1){
+                    vp.setCurrentItem(posicaoProximo);
+                }
+                return false; // Right to left
+            }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
+                if(posicaoAnterior > -1){
+                    vp.setCurrentItem(posicaoAnterior);
+                }
+                return false; // Left to right
+            }
+
+            if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
+                return false; // Bottom to top
+            }  else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
+                return false; // Top to bottom
+            }
+            return false;
+        }
+    }
 }

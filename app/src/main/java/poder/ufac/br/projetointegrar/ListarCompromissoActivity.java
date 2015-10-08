@@ -3,6 +3,7 @@ package poder.ufac.br.projetointegrar;
 import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,6 +27,7 @@ import poder.ufac.br.projetointegrar.cdp.Compromisso;
 import poder.ufac.br.projetointegrar.dao.CompromissoDao;
 import poder.ufac.br.projetointegrar.dao.DatabaseHelper;
 import poder.ufac.br.projetointegrar.dao.TarefaDao;
+import poder.ufac.br.projetointegrar.util.Relogio;
 
 public class ListarCompromissoActivity extends ActionBarActivity {
     //ORMlite
@@ -60,7 +62,7 @@ public class ListarCompromissoActivity extends ActionBarActivity {
 //
 //            listaCompromissos = compromissoDao.query(query);
             Map<String, Object> values = new HashMap<String, Object>();
-            values.put("data", new Date(getIntent().getLongExtra("data", 0)));
+            values.put("data", Relogio.zerarHoraDate(new Date(getIntent().getLongExtra("data", 0))));
             listaCompromissos = compromissoDao.queryForFieldValues(values);
             for(Compromisso c : listaCompromissos){
                 c.setTarefa(tdao.queryForId(Integer.parseInt(c.getTarefa().getId().toString())));
@@ -97,11 +99,12 @@ public class ListarCompromissoActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()){
             case android.R.id.home:
-                finish();
+//                finish();
+                NavUtils.navigateUpFromSameTask(this);
                 break;
             case R.id.itemMenuAdicionarCompromisso:
                 intent = new Intent(this, AdicionarCompromissosActivity.class);
-                intent.putExtra("data", getIntent().getLongExtra("data", 0));
+                intent.putExtra("data", Relogio.zerarHoraLong(getIntent().getLongExtra("data", 0)));
                 startActivity(intent);
                 break;
         }

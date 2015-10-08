@@ -50,9 +50,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
         android:src="@drawable/icon_task"
+        android:onClick="abrirAgendaActivity"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="abrirAgendaActivity" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

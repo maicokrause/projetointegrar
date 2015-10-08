@@ -25,6 +25,7 @@ import poder.ufac.br.projetointegrar.cdp.Tarefa;
 import poder.ufac.br.projetointegrar.dao.CompromissoDao;
 import poder.ufac.br.projetointegrar.dao.DatabaseHelper;
 import poder.ufac.br.projetointegrar.dao.TarefaDao;
+import poder.ufac.br.projetointegrar.util.Relogio;
 
 public class AdicionarCompromissosActivity extends ActionBarActivity {
 
@@ -80,13 +81,15 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
         });
 
         intent = getIntent();
+        data = Relogio.zerarHoraDate(new Date(intent.getLongExtra("data", 0)));
         if(intent.hasExtra("compromisso")) {
             c = (Compromisso) intent.getSerializableExtra("compromisso");
             miniatura.setImageResource(c.getTarefa().getMiniatura());
             nomeTarefa.setText(c.getTarefa().getNome());
             tp.setCurrentHour(Integer.parseInt(c.getHorario().substring(0, 2)));
-            tp.setCurrentMinute(Integer.parseInt(c.getHorario().substring(3,5)));
+            tp.setCurrentMinute(Integer.parseInt(c.getHorario().substring(3, 5)));
             t = c.getTarefa();
+            data = Relogio.zerarHoraDate(c.getData());
         }
 
     }
@@ -113,7 +116,10 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
         // as you specify a parent activity in AndroidManifest.xml.
         switch(item.getItemId()){
             case android.R.id.home:
-                finish();
+//                finish();
+                intent = new Intent(AdicionarCompromissosActivity.this, ListarCompromissoActivity.class);
+                intent.putExtra("data", Relogio.zerarHoraLong((data).getTime()));
+                NavUtils.navigateUpTo(this, intent);
                 break;
             case R.id.itemMenuCancelarCompromisso:
                 finish();
@@ -121,7 +127,7 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
             case R.id.itemMenuSalvarCompromisso:
                 salvarCompromisso();
                 intent = new Intent(AdicionarCompromissosActivity.this, ListarCompromissoActivity.class);
-                intent.putExtra("data", data.getTime());
+                intent.putExtra("data", Relogio.zerarHoraLong((data).getTime()));
                 startActivity(intent);
                 break;
         }
@@ -133,14 +139,14 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
         try {
             if( c == null) {
                 c = new Compromisso();
-                data = new Date(intent.getLongExtra("data",0));
+                data = Relogio.zerarHoraDate(new Date(intent.getLongExtra("data",0)));
                 c.setData(data);
                 c.setHorario(String.format("%02d", tp.getCurrentHour()) + ":" + String.format("%02d", tp.getCurrentMinute()));
                 c.setTarefa(t);
                 c.setStatus(0);
                 compromissoDao.create(c);
             }else {
-                data = c.getData();
+                data = Relogio.zerarHoraDate(c.getData());
                 c.setHorario(String.format("%02d", tp.getCurrentHour()) + ":" + String.format("%02d", tp.getCurrentMinute()));
                 c.setTarefa(t);
                 compromissoDao.update(c);

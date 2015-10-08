@@ -3,6 +3,7 @@ package poder.ufac.br.projetointegrar;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +27,7 @@ import poder.ufac.br.projetointegrar.cdp.Tarefa;
 import poder.ufac.br.projetointegrar.dao.CompromissoDao;
 import poder.ufac.br.projetointegrar.dao.DatabaseHelper;
 import poder.ufac.br.projetointegrar.dao.TarefaDao;
+import poder.ufac.br.projetointegrar.util.Relogio;
 
 public class AgendaActivity extends ActionBarActivity {
     private DatabaseHelper dh;
@@ -50,8 +52,9 @@ public class AgendaActivity extends ActionBarActivity {
     }
 
     private void selecionaDia() {
-        dataSelecionada = new Date(data.getYear()-1900, data.getMonth(), data.getDayOfMonth());
-        Toast.makeText(this, "Selecionado "+dataSelecionada, Toast.LENGTH_SHORT).show();
+        dataSelecionada = new Date(Relogio.zerarHoraLong(data.getCalendarView().getDate()));
+//        Toast.makeText(this, "Data: " +dataSelecionada.getTime(), Toast.LENGTH_SHORT).show();
+//        Log.i("Data", dataSelecionada.getTime() + "");
 
         //ORMlite
         dh = new DatabaseHelper(this);
@@ -71,7 +74,6 @@ public class AgendaActivity extends ActionBarActivity {
             for(Compromisso c : listaCompromissos){
                 c.setTarefa(tdao.queryForId(Integer.parseInt(c.getTarefa().getId().toString())));
             }
-            Toast.makeText(this, "Compromissos: "+listaCompromissos.size(), Toast.LENGTH_SHORT).show();
         } catch (SQLException e) {
             e.printStackTrace();
         }

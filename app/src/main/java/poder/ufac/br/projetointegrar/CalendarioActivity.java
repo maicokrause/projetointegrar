@@ -1,8 +1,10 @@
 package poder.ufac.br.projetointegrar;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,6 +16,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+
+import poder.ufac.br.projetointegrar.util.Relogio;
 
 public class CalendarioActivity extends ActionBarActivity {
     private CalendarView calendar;
@@ -27,9 +31,9 @@ public class CalendarioActivity extends ActionBarActivity {
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 String selectedDate = sdf.format(new Date(calendar.getDate()));
-                Toast.makeText(CalendarioActivity.this, "Data: " + new Date(calendar.getDate()), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(CalendarioActivity.this, "Data: " + new Date(calendar.getDate()), Toast.LENGTH_SHORT).show();
                 intent = new Intent(CalendarioActivity.this, ListarCompromissoActivity.class);
-                intent.putExtra("data", calendar.getDate());
+                intent.putExtra("data", Relogio.zerarHoraLong(calendar.getDate()));
                 startActivity(intent);
             }
         });
@@ -55,17 +59,14 @@ public class CalendarioActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case android.R.id.home:
-                finish();
+//                finish();
+                NavUtils.navigateUpFromSameTask(this);
                 break;
             case R.id.itemMenuCalendarioSelecionarDia:
-                Calendar c = Calendar.getInstance();
-                c.setTime(new Date(calendar.getDate())); //colocando o objeto Date no Calendar
-                c.set(Calendar.HOUR_OF_DAY, 0); //zerando as horas, minuots e segundos..
-                c.set(Calendar.MINUTE, 0);
-                c.set(Calendar.SECOND, 0);
-                Toast.makeText(CalendarioActivity.this, "Data: "+c.getTime(), Toast.LENGTH_SHORT).show();
                 intent = new Intent(CalendarioActivity.this, ListarCompromissoActivity.class);
-                intent.putExtra("data", c.getTime().getTime());
+//                Toast.makeText(CalendarioActivity.this, "Data: " + Relogio.zerarHoraLong(calendar.getDate()), Toast.LENGTH_SHORT).show();
+//                Log.i("Data", Relogio.zerarHoraLong(calendar.getDate())+"");
+                intent.putExtra("data", Relogio.zerarHoraLong(calendar.getDate()));
                 startActivity(intent);
         }
         return true;

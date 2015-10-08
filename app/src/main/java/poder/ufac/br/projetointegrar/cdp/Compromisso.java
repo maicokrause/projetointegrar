@@ -22,7 +22,7 @@ public class Compromisso implements Serializable {
     @DatabaseField
     private String horario;
 
-    @DatabaseField(dataType = DataType.DATE_LONG)
+    @DatabaseField(dataType = DataType.DATE)
     private Date data;
 
     @DatabaseField(foreign=true)
