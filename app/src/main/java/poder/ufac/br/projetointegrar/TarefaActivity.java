@@ -5,17 +5,26 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
+import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
+
+import java.sql.SQLException;
+
+import poder.ufac.br.projetointegrar.adapter.AdapterImg;
+import poder.ufac.br.projetointegrar.cdp.Compromisso;
+import poder.ufac.br.projetointegrar.cdp.Tarefa;
+import poder.ufac.br.projetointegrar.dao.CompromissoDao;
+import poder.ufac.br.projetointegrar.dao.DatabaseHelper;
+import poder.ufac.br.projetointegrar.dao.TarefaDao;
+import poder.ufac.br.projetointegrar.util.GestureHelper;
 
 public class TarefaActivity extends Activity {
     MediaPlayer player;
@@ -24,14 +33,16 @@ public class TarefaActivity extends Activity {
     ImageView anterior;
     ImageView proximo;
     ImageView ivTitulo;
-//    Bundle bundle = getIntent().getExtras();
     Intent intent;
     private int [] imagens;
     private Bitmap[] bitmap;
     private int[] audios;
     private int posicaoAnterior = -1;
     private int posicaoProximo = 1;
-    ViewPager vp;
+    private Compromisso compromisso;
+    private ViewPager vp;
+    private LinearLayout layoutCompleta;
+    private Handler handler = new Handler();
     public void play(int i){
         player= MediaPlayer.create(this,i);
         player.start();
@@ -43,8 +54,9 @@ public class TarefaActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         intent = getIntent();
-        imagens = intent.getIntArrayExtra("imagens");
-        audios = intent.getIntArrayExtra("audio");
+        compromisso = (Compromisso) intent.getSerializableExtra("compromisso");
+        imagens = compromisso.getTarefa().getImagens();
+        audios = compromisso.getTarefa().getAudio();
         converterImagem();
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
@@ -52,57 +64,35 @@ public class TarefaActivity extends Activity {
 
         //Imagem de titulo da tarefa
         ivTitulo = (ImageView) findViewById(R.id.imageViewTitle);
-        ivTitulo.setImageResource(intent.getIntExtra("titulo",0));
+        ivTitulo.setImageResource(compromisso.getTarefa().getTitulo());
 
         anterior = (ImageView) findViewById(R.id.imageViewTarefaAnterior);
-        final GestureDetector gdt = new GestureDetector(this, new GestureListener());
-        anterior.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (gdt.onTouchEvent(event)) {
-                    return false;
-                }
-                return true;
-            }
-        });
-        anterior.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (posicaoAnterior > -1) {
-                    vp.setCurrentItem(posicaoAnterior);
-                }
-            }
-        });
         proximo = (ImageView) findViewById(R.id.imageViewTarefaProximo);
-        proximo.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (gdt.onTouchEvent(event)) {
-                    return false;
-                }
-                return true;
+        anterior.setOnTouchListener(new GestureHelper(this){
+            public void onClick() {
+                imagemAnterior();
             }
+            public void onSwipeRight() {
+                imagemAnterior();
+            };
         });
-        anterior.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(posicaoProximo > -1){
-                    vp.setCurrentItem(posicaoProximo);
-                }
+        proximo.setOnTouchListener(new GestureHelper(this) {
+            public void onClick() {
+                imagemProxima();
             }
+
+            public void onSwipeLeft() {
+                imagemProxima();
+            }
+
+            ;
         });
         proximo.setImageBitmap(bitmap[1]);
         //criação do viewPager
         vp = (ViewPager) findViewById(R.id.viewPagerTarefa); //new ViewPager(this); //
-//        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//        vp.setLayoutParams(lp);
-        AdapterImg adapterImg = new AdapterImg(this, bitmap, audios);
 
+        AdapterImg adapterImg = new AdapterImg(this, bitmap, audios);
         vp.setAdapter(adapterImg);
-        //barra que contem as imagens
-        //ll = (LinearLayout) findViewById(R.id.tarefaLinearLayoutHorizontal);
-//        vp.setCurrentItem();
-        //adapter.
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -121,45 +111,73 @@ public class TarefaActivity extends Activity {
                                 if (posicao == bitmap.length - 1) {
                                     proximo.setImageBitmap(BitmapFactory.decodeResource(getResources(), 0));
                                     posicaoProximo = -1;
+                                    tarefaCompleta();
                                 }
                             }
                         }else {
                             if (posicao == 0) {
                                 anterior.setImageBitmap(BitmapFactory.decodeResource(getResources(), 0));
+                                proximo.setImageBitmap(bitmap[1]);
                                 posicaoAnterior = -1;
                             }
                         }
                     }
                 });
-
-//                String texto = getIntent().getStringExtra("teste")+" teste"+getIntent().hasExtra("IMAGENS");
-//                int duracao = Toast.LENGTH_SHORT;
-//                Toast toast = Toast.makeText(TarefaActivity.this, texto, duracao);
-//                toast.show();
             }
-
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
-
             }
-
             @Override
             public void onPageScrollStateChanged(int arg0) {
-
             }
         });
 
-//        proximo.setOnTouchListener(new View.OnTouchListener() {
-//            GestureDetector gestureDetector = new GestureDetector(new SwingGestureDetection((mContext), image, a));
-//
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return gestureDetector.onTouchEvent(event);
-//            }
-//        });
-
         play(audios[0]);
     }
+
+    public void repetirTarefa(View v){
+        vp.setCurrentItem(0);
+        layoutCompleta.setVisibility(v.INVISIBLE);
+    }
+
+    public void finalizarTarefa(View v){
+        intent = new Intent(this, AgendaViewPagerActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    public void tarefaCompleta(){
+        Thread thread = new Thread(run);
+        thread.start();
+    }
+
+    private Runnable run = new Runnable() {
+
+        @Override
+        public void run() {
+            Log.i("ProjetoIntegrar", "working..");
+            try {
+                Thread.sleep(2000);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            //ORMlite
+            DatabaseHelper dh = new DatabaseHelper(TarefaActivity.this);
+            try {
+                CompromissoDao  compromissoDao = new CompromissoDao(dh.getConnectionSource());
+                compromisso.setStatus(1);
+                compromissoDao.update(compromisso);
+            } catch (SQLException e) {e.printStackTrace();}
+            layoutCompleta = (LinearLayout) findViewById(R.id.layoutTarefaCompleta);
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    layoutCompleta.setVisibility(View.VISIBLE);
+                }
+            });
+        }
+    };
 
     public void converterImagem(){
         bitmap = new Bitmap[imagens.length];
@@ -168,41 +186,14 @@ public class TarefaActivity extends Activity {
         }
     }
 
-    public void imagemAnterior(View v){
+    public void imagemAnterior(){
         if(posicaoAnterior > -1){
             vp.setCurrentItem(posicaoAnterior);
         }
     }
-    public void imagemProxima(View v){
+    public void imagemProxima(){
         if(posicaoProximo > -1){
             vp.setCurrentItem(posicaoProximo);
-        }
-    }
-
-    private static final int SWIPE_MIN_DISTANCE = 120;
-    private static final int SWIPE_THRESHOLD_VELOCITY = 200;
-    private class GestureListener extends GestureDetector.SimpleOnGestureListener {
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if(e1.getX() - e2.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-//                Toast.makeText(TarefaActivity.this, "Right to left", Toast.LENGTH_SHORT).show();
-                if(posicaoProximo > -1){
-                    vp.setCurrentItem(posicaoProximo);
-                }
-                return false; // Right to left
-            }  else if (e2.getX() - e1.getX() > SWIPE_MIN_DISTANCE && Math.abs(velocityX) > SWIPE_THRESHOLD_VELOCITY) {
-                if(posicaoAnterior > -1){
-                    vp.setCurrentItem(posicaoAnterior);
-                }
-                return false; // Left to right
-            }
-
-            if(e1.getY() - e2.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
-                return false; // Bottom to top
-            }  else if (e2.getY() - e1.getY() > SWIPE_MIN_DISTANCE && Math.abs(velocityY) > SWIPE_THRESHOLD_VELOCITY) {
-                return false; // Top to bottom
-            }
-            return false;
         }
     }
 }

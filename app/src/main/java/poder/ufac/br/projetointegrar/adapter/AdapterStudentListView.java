@@ -1,4 +1,4 @@
-package poder.ufac.br.projetointegrar;
+package poder.ufac.br.projetointegrar.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import poder.ufac.br.projetointegrar.R;
 import poder.ufac.br.projetointegrar.cdp.Student;
 
 /**

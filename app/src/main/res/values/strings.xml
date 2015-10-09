@@ -11,4 +11,5 @@
     <string name="title_activity_adicionar_compromissos">AdicionarCompromissosActivity</string>
     <string name="title_activity_calendario">CalendarioActivity</string>
     <string name="title_activity_agenda">AgendaActivity</string>
+    <string name="title_activity_agente_view_pager">AgenteViewPagerActivity</string>
 </resources>

@@ -65,6 +65,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+        <activity
+            android:name=".AgendaViewPagerActivity"
+            android:label="@string/title_activity_agente_view_pager" >
+        </activity>
     </application>
 
 </manifest>

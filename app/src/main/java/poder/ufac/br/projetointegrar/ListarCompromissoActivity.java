@@ -11,10 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -23,6 +19,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import poder.ufac.br.projetointegrar.adapter.AdapterCompromissoListView;
 import poder.ufac.br.projetointegrar.cdp.Compromisso;
 import poder.ufac.br.projetointegrar.dao.CompromissoDao;
 import poder.ufac.br.projetointegrar.dao.DatabaseHelper;

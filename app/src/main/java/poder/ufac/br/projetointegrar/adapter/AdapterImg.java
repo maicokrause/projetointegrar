@@ -1,4 +1,4 @@
-package poder.ufac.br.projetointegrar;
+package poder.ufac.br.projetointegrar.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;

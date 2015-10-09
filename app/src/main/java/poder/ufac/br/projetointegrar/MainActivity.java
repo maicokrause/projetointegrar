@@ -3,8 +3,6 @@ package poder.ufac.br.projetointegrar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -32,7 +30,7 @@ public class MainActivity extends Activity {
     }
 
     public void abrirAgendaActivity(View view){
-        intent = new Intent(this, AgendaActivity.class);
+        intent = new Intent(this, AgendaViewPagerActivity.class);
         startActivity(intent);
     }
 

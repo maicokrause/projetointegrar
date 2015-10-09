@@ -3,18 +3,12 @@ package poder.ufac.br.projetointegrar;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.j256.ormlite.stmt.PreparedQuery;
-import com.j256.ormlite.stmt.QueryBuilder;
 
 import java.sql.SQLException;
 import java.util.Date;
@@ -22,6 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import poder.ufac.br.projetointegrar.adapter.AdapterCompromissoListView;
 import poder.ufac.br.projetointegrar.cdp.Compromisso;
 import poder.ufac.br.projetointegrar.cdp.Tarefa;
 import poder.ufac.br.projetointegrar.dao.CompromissoDao;
@@ -62,12 +57,6 @@ public class AgendaActivity extends ActionBarActivity {
             compromissoDao = new CompromissoDao(dh.getConnectionSource());
             tdao = new TarefaDao(dh.getConnectionSource());
 
-            //listaCompromissos = compromissoDao.queryForAll();
-//            QueryBuilder<Compromisso, Integer> queryBuilder = compromissoDao.queryBuilder();
-//            queryBuilder.where().eq("data", new Date(dataSelecionada.getYear(),dataSelecionada.getMonth(),dataSelecionada.getDay()));
-//            PreparedQuery<Compromisso> query = queryBuilder.prepare();
-//            listaCompromissos = compromissoDao.query(query);
-
             Map<String, Object> values = new HashMap<String, Object>();
             values.put("data", dataSelecionada);
             listaCompromissos = compromissoDao.queryForFieldValues(values);
@@ -88,9 +77,10 @@ public class AgendaActivity extends ActionBarActivity {
 
                 Tarefa t = (Tarefa) c.getTarefa();
 //        Toast.makeText(this, "Tarefa: "+t.getNome(), Toast.LENGTH_SHORT).show();
-                intent.putExtra("imagens", t.getImagens());
-                intent.putExtra("audio", t.getAudio());
-                intent.putExtra("titulo", t.getTitulo());
+//                intent.putExtra("imagens", t.getImagens());
+//                intent.putExtra("audio", t.getAudio());
+//                intent.putExtra("titulo", t.getTitulo());
+                intent.putExtra("compromisso", c);
                 startActivity(intent);
             }
         });

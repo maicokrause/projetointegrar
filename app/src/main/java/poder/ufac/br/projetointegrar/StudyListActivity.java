@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import poder.ufac.br.projetointegrar.adapter.AdapterStudentListView;
 import poder.ufac.br.projetointegrar.cdp.Discipline;
 import poder.ufac.br.projetointegrar.cdp.Student;
 import poder.ufac.br.projetointegrar.dao.DatabaseHelper;

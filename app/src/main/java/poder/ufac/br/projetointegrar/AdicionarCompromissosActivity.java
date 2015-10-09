@@ -13,13 +13,13 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import poder.ufac.br.projetointegrar.adapter.AdapterListView;
 import poder.ufac.br.projetointegrar.cdp.Compromisso;
 import poder.ufac.br.projetointegrar.cdp.Tarefa;
 import poder.ufac.br.projetointegrar.dao.CompromissoDao;
@@ -119,6 +119,7 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
 //                finish();
                 intent = new Intent(AdicionarCompromissosActivity.this, ListarCompromissoActivity.class);
                 intent.putExtra("data", Relogio.zerarHoraLong((data).getTime()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 NavUtils.navigateUpTo(this, intent);
                 break;
             case R.id.itemMenuCancelarCompromisso:
@@ -128,6 +129,7 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
                 salvarCompromisso();
                 intent = new Intent(AdicionarCompromissosActivity.this, ListarCompromissoActivity.class);
                 intent.putExtra("data", Relogio.zerarHoraLong((data).getTime()));
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 break;
         }
