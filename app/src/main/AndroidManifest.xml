@@ -10,8 +10,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation"
             android:label="@string/app_name"
+            android:configChanges="orientation"
             android:screenOrientation="landscape" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,6 +38,8 @@
             android:label="@string/title_activity_study_list" >
         </activity>
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"
             android:name=".ListarCompromissoActivity"
             android:label="@string/title_activity_adicionar_compromisso" >
             <meta-data
@@ -45,6 +47,8 @@
                 android:value=".CalendarioActivity" />
         </activity>
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"
             android:name=".AdicionarCompromissosActivity"
             android:label="@string/title_activity_adicionar_compromissos" >
             <meta-data
@@ -52,6 +56,8 @@
                 android:value=".ListarCompromissoActivity" />
         </activity>
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"
             android:name=".CalendarioActivity"
             android:label="@string/title_activity_calendario" >
             <meta-data
@@ -59,6 +65,8 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"
             android:name=".AgendaActivity"
             android:label="@string/title_activity_agenda" >
             <meta-data
@@ -66,6 +74,8 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"
             android:name=".AgendaViewPagerActivity"
             android:label="@string/title_activity_agente_view_pager" >
         </activity>

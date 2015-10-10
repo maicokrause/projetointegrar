@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
 import android.util.Log;
@@ -68,13 +69,16 @@ public class TarefaActivity extends Activity {
 
         anterior = (ImageView) findViewById(R.id.imageViewTarefaAnterior);
         proximo = (ImageView) findViewById(R.id.imageViewTarefaProximo);
-        anterior.setOnTouchListener(new GestureHelper(this){
+        anterior.setOnTouchListener(new GestureHelper(this) {
             public void onClick() {
                 imagemAnterior();
             }
+
             public void onSwipeRight() {
                 imagemAnterior();
-            };
+            }
+
+            ;
         });
         proximo.setOnTouchListener(new GestureHelper(this) {
             public void onClick() {
@@ -90,7 +94,6 @@ public class TarefaActivity extends Activity {
         proximo.setImageBitmap(bitmap[1]);
         //criação do viewPager
         vp = (ViewPager) findViewById(R.id.viewPagerTarefa); //new ViewPager(this); //
-
         AdapterImg adapterImg = new AdapterImg(this, bitmap, audios);
         vp.setAdapter(adapterImg);
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -98,41 +101,48 @@ public class TarefaActivity extends Activity {
             @Override
             public void onPageSelected(final int posicao) {
                 play(audios[posicao]);
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (posicao > 0) {
-                            anterior.setImageBitmap(bitmap[posicao - 1]);
-                            posicaoAnterior = posicao - 1;
-                            if (posicao < bitmap.length - 1) {
-                                proximo.setImageBitmap(bitmap[posicao + 1]);
-                                posicaoProximo = posicao + 1;
-                            }else {
-                                if (posicao == bitmap.length - 1) {
-                                    proximo.setImageBitmap(BitmapFactory.decodeResource(getResources(), 0));
-                                    posicaoProximo = -1;
-                                    tarefaCompleta();
-                                }
-                            }
-                        }else {
-                            if (posicao == 0) {
-                                anterior.setImageBitmap(BitmapFactory.decodeResource(getResources(), 0));
-                                proximo.setImageBitmap(bitmap[1]);
-                                posicaoAnterior = -1;
-                            }
+                if (posicao > 0) {
+                    anterior.setImageBitmap(bitmap[posicao - 1]);
+                    posicaoAnterior = posicao - 1;
+                    if (posicao < bitmap.length - 1) {
+                        proximo.setImageBitmap(bitmap[posicao + 1]);
+                        posicaoProximo = posicao + 1;
+                    } else {
+                        if (posicao == bitmap.length - 1) {
+                            proximo.setImageBitmap(BitmapFactory.decodeResource(getResources(), 0));
+                            posicaoProximo = -1;
+                            tarefaCompleta();
                         }
                     }
-                });
+                } else {
+                    if (posicao == 0) {
+                        anterior.setImageBitmap(BitmapFactory.decodeResource(getResources(), 0));
+                        proximo.setImageBitmap(bitmap[1]);
+                        posicaoAnterior = -1;
+                    }
+                }
             }
+
             @Override
             public void onPageScrolled(int arg0, float arg1, int arg2) {
             }
+
             @Override
             public void onPageScrollStateChanged(int arg0) {
+
             }
         });
+        new Runnable() {
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                play(audios[0]);
+            }
+        }.run();
 
-        play(audios[0]);
     }
 
     public void repetirTarefa(View v){
