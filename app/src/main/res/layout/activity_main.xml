@@ -45,14 +45,37 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imageView2"
-        android:src="@drawable/icon_task"
+    <!--<com.makeramen.RoundedImageView-->
+        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+        <!--android:id="@+id/rivImg"-->
+        <!--android:src="@drawable/icon_config"-->
+        <!--android:layout_width="50dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:layout_marginRight="15dp"-->
+        <!--android:scaleType="fitCenter"-->
+        <!--app:riv_corner_radius="3dip"-->
+        <!--app:riv_border_width="2dip"-->
+        <!--app:riv_border_color="#bbb"-->
+        <!--app:riv_mutate_background="true"-->
+        <!--app:riv_tile_mode="repeat"-->
+        <!--app:riv_oval="true" />-->
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:id="@+id/imageButtonTask"
         android:onClick="abrirAgendaActivity"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/icon_task_button" />
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/textView4"
+        android:layout_above="@+id/imageView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:background="@drawable/icon_text_teste" />
 </RelativeLayout>

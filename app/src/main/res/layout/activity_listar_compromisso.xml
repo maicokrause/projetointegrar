@@ -17,6 +17,8 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Lista de compromissos do dia"
+            android:textColor="#0e82ff"
+            android:textSize="@dimen/textSizeTitulo"
             android:id="@+id/textViewListarCompromissosTitulo"
             android:layout_gravity="center_horizontal" />
 

@@ -13,7 +13,10 @@ import java.io.Serializable;
 public class Tarefa implements Serializable{
     @DatabaseField(generatedId=true)
     private Long id;
+    @DatabaseField
     private int status;
+    @DatabaseField
+    private int tipo;
     @DatabaseField
     private int miniatura;
     @DatabaseField
@@ -26,12 +29,14 @@ public class Tarefa implements Serializable{
     private int titulo;
 
     public Tarefa(){}
-    public Tarefa(String nome, int [] imagens, int[] audio, int titulo, int miniatura){
+    public Tarefa(String nome, int [] imagens, int[] audio, int titulo, int miniatura, int tipo, int status){
         this.miniatura = miniatura;
         this.nome = nome;
         this.imagens = imagens;
         this.audio = audio;
         this.titulo = titulo;
+        this.tipo = tipo;
+        this.status = status;
     }
 
     public Long getId() {
@@ -40,6 +45,14 @@ public class Tarefa implements Serializable{
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
     public int getStatus() {

@@ -86,7 +86,8 @@ public class AgendaPagerAdapter extends PagerAdapter {
             values.put("data", dataAgenda);
             listaCompromissos = compromissoDao.queryForFieldValues(values);
             for(Compromisso c : listaCompromissos){
-                c.setTarefa(tdao.queryForId(Integer.parseInt(c.getTarefa().getId().toString())));
+                if(c.getTarefa() != null)
+                    c.setTarefa(tdao.queryForId(Integer.parseInt(c.getTarefa().getId().toString())));
             }
         } catch (SQLException e) {
             e.printStackTrace();

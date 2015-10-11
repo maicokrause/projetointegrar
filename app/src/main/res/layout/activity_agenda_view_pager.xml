@@ -5,13 +5,16 @@
     android:orientation="vertical"
     android:background="@drawable/background_blue_sky">
 
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Titulo"
+        android:layout_gravity="center_horizontal"
+        android:text="A light blue shadow."
+        android:textSize="@dimen/textSizeTitulo"
+        android:textColor="#37ff00"
         android:id="@+id/textViewTituloAgendaViewPager"
-        android:layout_gravity="center_horizontal" />
+        />
 
     <LinearLayout
         android:orientation="horizontal"

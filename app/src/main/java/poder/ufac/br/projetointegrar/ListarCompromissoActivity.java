@@ -1,7 +1,11 @@
 package poder.ufac.br.projetointegrar;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -34,7 +38,8 @@ public class ListarCompromissoActivity extends ActionBarActivity {
     private ListView listViewCompromissos;
     private List<Compromisso> listaCompromissos;
     private TextView textoTitulo;
-    Intent intent;
+    private Intent intent;
+    private AdapterCompromissoListView adapterListView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,7 +50,10 @@ public class ListarCompromissoActivity extends ActionBarActivity {
         textoTitulo = (TextView) findViewById(R.id.textViewListarCompromissosTitulo);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String dataString = sdf.format(new Date(getIntent().getLongExtra("data", 0)));
-        textoTitulo.setText("Tarefas do dia "+dataString);
+        textoTitulo.setShadowLayer(5, 10, 5, Color.BLACK);
+        Typeface font = Typeface.createFromAsset(getAssets(), "snap_itc.ttf");
+        textoTitulo.setTypeface(font);
+        textoTitulo.setText(Relogio.getDiaSemana(dataString)+" "+ dataString);
         //ORMlite
         dh = new DatabaseHelper(this);
         try {
@@ -67,19 +75,67 @@ public class ListarCompromissoActivity extends ActionBarActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        AdapterCompromissoListView adapter = new AdapterCompromissoListView(this, listaCompromissos);
-        listViewCompromissos.setAdapter(adapter);
+        adapterListView = new AdapterCompromissoListView(this, listaCompromissos);
+        listViewCompromissos.setAdapter(adapterListView);
         listViewCompromissos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int item, long id) {
-                Compromisso c = (Compromisso) adapter.getItemAtPosition(item);
-                intent = new Intent(ListarCompromissoActivity.this, AdicionarCompromissosActivity.class);
-                intent.putExtra("compromisso", c);
-                startActivity(intent);
+                editarCompromisso((Compromisso) adapter.getItemAtPosition(item));
 //                Toast.makeText(ListarCompromissoActivity.this, "Tarefa "+c.getTarefa().getId(), Toast.LENGTH_SHORT).show();
             }
         });
+        listViewCompromissos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            public boolean onItemLongClick(final AdapterView<?> adapter, View arg1,
+                                           final int item, long id) {
+                final Compromisso c = (Compromisso) adapter.getItemAtPosition(item);
+//                Toast.makeText(ListarCompromissoActivity.this, "On long press: "+c.getTarefa().getNome(), Toast.LENGTH_SHORT).show();
+                final CharSequence colors[] = new CharSequence[] {"Editar", "Excluir", "Cancelar"};
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ListarCompromissoActivity.this);
+                builder.setTitle("Selecione uma opção");
+                builder.setItems(colors, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (which){
+                            case 0:
+                                editarCompromisso((Compromisso) adapter.getItemAtPosition(item));
+                                break;
+                            case 1:
+                                excluirCompromisso((Compromisso) adapter.getItemAtPosition(item));
+                        }
+                    }
+                });
+                builder.show();
+
+
+                return true;
+            }
+        });
+    }
+
+    public void editarCompromisso(Compromisso c){
+        intent = new Intent(ListarCompromissoActivity.this, AdicionarCompromissosActivity.class);
+        intent.putExtra("compromisso", c);
+        startActivity(intent);
+    }
+
+    public void excluirCompromisso(final Compromisso c){
+        new AlertDialog.Builder(ListarCompromissoActivity.this).setTitle("Excluir")
+                .setMessage("Tem certeza que deseja excluir esta tarefa?")
+                .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            compromissoDao.delete(c);
+                            adapterListView.deletarItem(c);
+                            adapterListView.notifyDataSetChanged();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }).setNegativeButton("Nao", null).show();
     }
 
     @Override

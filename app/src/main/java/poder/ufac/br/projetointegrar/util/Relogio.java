@@ -129,8 +129,39 @@ public class Relogio {
 	    cal.setTime(data);  
 	    int diaSemana = cal.get(Calendar.DAY_OF_WEEK);  
 	    return diaSemana == Calendar.SATURDAY || diaSemana == Calendar.SUNDAY;  
-	} 
-	
+	}
+
+	public static String getDiaSemana(Date data){
+		Calendar cal=Calendar.getInstance();
+		cal.setTime(data);
+		int i = cal.get(Calendar.DAY_OF_WEEK);
+		switch (i) {
+			case Calendar.MONDAY : return "Segunda-Feira";
+			case Calendar.TUESDAY : return "Terça-Feira";
+			case Calendar.WEDNESDAY : return "Quarta-Feira";
+			case Calendar.THURSDAY : return "Quinta-Feira";
+			case Calendar.FRIDAY : return "Sexta-Feira";
+			case Calendar.SATURDAY : return "Sábado";
+			case Calendar.SUNDAY : return "Domingo";
+			default: return "";
+		}
+	}
+	public static String getDiaSemana(String data){
+		Calendar cal=Calendar.getInstance();
+		cal.setTime(dataStr(data));
+		int i = cal.get(Calendar.DAY_OF_WEEK);
+		switch (i) {
+			case Calendar.MONDAY : return "Segunda-Feira";
+			case Calendar.TUESDAY : return "Terça-Feira";
+			case Calendar.WEDNESDAY : return "Quarta-Feira";
+			case Calendar.THURSDAY : return "Quinta-Feira";
+			case Calendar.FRIDAY : return "Sexta-Feira";
+			case Calendar.SATURDAY : return "Sábado";
+			case Calendar.SUNDAY : return "Domingo";
+			default: return "";
+		}
+	}
+
 	public static String getTextoMes(int mes){
 		switch (mes) {
 		case 1: return "Janeiro";

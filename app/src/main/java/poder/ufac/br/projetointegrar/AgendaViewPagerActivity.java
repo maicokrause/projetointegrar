@@ -3,6 +3,8 @@ package poder.ufac.br.projetointegrar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -46,7 +48,10 @@ public class AgendaViewPagerActivity extends Activity {
         datas = new String[15];
         inicializaDatas();
         titulo = (TextView) findViewById(R.id.textViewTituloAgendaViewPager);
-        titulo.setText("Agenda do dia " + datas[8]);
+        titulo.setShadowLayer(5, 10, 5, Color.BLACK);
+        Typeface font = Typeface.createFromAsset(getAssets(), "snap_itc.ttf");
+        titulo.setTypeface(font);
+        titulo.setText(Relogio.getDiaSemana(datas[8])+" "+ datas[8]);
         ViewPager vp = (ViewPager) findViewById(R.id.viewpager);
 //        AgendaPagerAdapter adapter = new AgendaPagerAdapter(mContext,pages);
         vp.setAdapter(new AgendaPagerAdapter(mContext, datas));
@@ -55,7 +60,7 @@ public class AgendaViewPagerActivity extends Activity {
 
             @Override
             public void onPageSelected(final int posicao) {
-                titulo.setText("Agenda do dia " + datas[posicao]);
+                titulo.setText(Relogio.getDiaSemana(datas[posicao])+" "+ datas[posicao]);
             }
 
             @Override
@@ -77,7 +82,6 @@ public class AgendaViewPagerActivity extends Activity {
         Date hoje = new Date();
         for (int i=-7; i<=7; i++){
             datas[i+7] = Relogio.converteParaString(new Date(hoje.getTime()+((1000*24*60*60)*i)));
-            Log.i("Data", datas[i+7]);
         }
     }
 

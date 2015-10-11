@@ -16,7 +16,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/layoutCompromisso"
@@ -38,12 +38,28 @@
                     <!--android:id="@+id/textViewCompromissoHorarioItem"-->
                     <!--android:padding="5dp" />-->
 
-                <ImageView
-                    android:id="@+id/imageViewCompromissoItem"
-                    android:layout_width="@dimen/imageviewMiniatura_width"
-                    android:layout_height="@dimen/imageviewMiniatura_width"
-                    android:padding="10dp"
-                    android:layout_gravity="right" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:layout_gravity="right">
+
+                    <ImageView
+                        android:layout_width="@dimen/imageviewStar_width"
+                        android:layout_height="@dimen/imageviewStar_height"
+                        android:id="@+id/imageViewPeriodoCompromisso"
+                        android:src="@drawable/titulo_manha"
+                        android:layout_marginRight="10dp" />
+
+                    <ImageView
+                        android:id="@+id/imageViewCompromissoItem"
+                        android:layout_width="@dimen/imageviewMiniatura_width"
+                        android:layout_height="@dimen/imageviewMiniatura_width"
+                        android:padding="10dp"
+                        android:layout_alignParentLeft="true"/>
+                </LinearLayout>
+
             </LinearLayout>
 
             <ImageView
@@ -54,7 +70,7 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:id="@+id/layoutCompromissoCompleto"
@@ -73,12 +89,47 @@
                     <!--android:text="Horario"-->
                     <!--android:id="@+id/textViewCompromissoHorarioItemCompleto" />-->
 
-                <ImageView
-                    android:id="@+id/imageViewCompromissoItemCompleto"
-                    android:layout_width="@dimen/imageviewMiniatura_width"
-                    android:layout_height="@dimen/imageviewMiniatura_width"
-                    android:padding="10dp"
-                    android:layout_gravity="left" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:weightSum="5"
+                    android:layout_gravity="left">
+
+                    <!--<com.makeramen.roundedimageview.RoundedImageView-->
+                        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
+                        <!--android:id="@+id/imageViewCompromissoItemCompleto"-->
+                        <!--android:layout_width="@dimen/imageviewMiniatura_width"-->
+                        <!--android:layout_height="@dimen/imageviewMiniatura_width"-->
+                        <!--android:layout_alignParentTop="true"-->
+                        <!--android:layout_alignParentBottom="true"-->
+                        <!--android:layout_alignParentRight="true"-->
+                        <!--android:layout_alignParentLeft="true"-->
+                        <!--android:layout_alignParentStart="true"-->
+                        <!--android:layout_alignParentEnd="true"-->
+                        <!--android:padding="10dp"-->
+                        <!--android:scaleType="center"-->
+                        <!--app:riv_corner_radius="30dip"-->
+                        <!--app:riv_border_width="3dip"-->
+                        <!--app:riv_oval="false"-->
+                        <!--app:riv_border_color="@color/border"-->
+                        <!--/>-->
+
+                    <ImageView
+                        android:id="@+id/imageViewCompromissoItemCompleto"
+                        android:layout_width="@dimen/imageviewMiniatura_width"
+                        android:layout_height="@dimen/imageviewMiniatura_width"
+                        android:padding="10dp"
+                        android:layout_gravity="left" />
+
+                    <ImageView
+                        android:layout_width="@dimen/imageviewStar_width"
+                        android:layout_height="@dimen/imageviewStar_height"
+                        android:id="@+id/imageViewPeriodoCompromissoCompleto"
+                        android:src="@drawable/titulo_manha"
+                        android:layout_marginLeft="10dp"
+                        android:visibility="visible" />
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

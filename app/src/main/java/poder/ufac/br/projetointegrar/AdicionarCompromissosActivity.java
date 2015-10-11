@@ -1,6 +1,8 @@
 package poder.ufac.br.projetointegrar;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
@@ -13,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -122,22 +125,44 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 NavUtils.navigateUpTo(this, intent);
                 break;
-            case R.id.itemMenuCancelarCompromisso:
-                finish();
+            case R.id.itemMenuExcluirCompromisso:
+                new AlertDialog.Builder(AdicionarCompromissosActivity.this).setTitle("Excluir")
+                        .setMessage("Tem certeza que deseja excluir esta tarefa?")
+                        .setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                try {
+                                    compromissoDao.delete(c);
+                                    intent = new Intent(AdicionarCompromissosActivity.this, ListarCompromissoActivity.class);
+                                    intent.putExtra("data", Relogio.zerarHoraLong((data).getTime()));
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                } catch (SQLException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).setNegativeButton("Nao", null).show();
                 break;
             case R.id.itemMenuSalvarCompromisso:
-                salvarCompromisso();
-                intent = new Intent(AdicionarCompromissosActivity.this, ListarCompromissoActivity.class);
-                intent.putExtra("data", Relogio.zerarHoraLong((data).getTime()));
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                if(salvarCompromisso()){
+                    intent = new Intent(AdicionarCompromissosActivity.this, ListarCompromissoActivity.class);
+                    intent.putExtra("data", Relogio.zerarHoraLong((data).getTime()));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
                 break;
         }
 
         return(true);
     }
 
-    public void salvarCompromisso(){
+    public boolean salvarCompromisso(){
+        if(t == null){
+            Toast.makeText(this, "Selecione uma tarefa na lista", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
         try {
             if( c == null) {
                 c = new Compromisso();
@@ -156,6 +181,7 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return true;
     }
 
     private void carregaTarefas() {

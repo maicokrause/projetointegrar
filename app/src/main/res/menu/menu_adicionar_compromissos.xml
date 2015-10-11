@@ -4,15 +4,16 @@
     tools:context="poder.ufac.br.projetointegrar.AdicionarCompromissosActivity">
 
     <item
-        android:id="@+id/itemMenuCancelarCompromisso"
+        android:id="@+id/itemMenuExcluirCompromisso"
         android:icon="@drawable/ic_launcher"
-        android:title="Cancelar"
+        android:title="Excluir"
         app:showAsAction="ifRoom|withText" />
+
 
     <item
         android:id="@+id/itemMenuSalvarCompromisso"
         android:icon="@drawable/ic_launcher"
-        android:title="Salvar Tarefa"
+        android:title="Adicionar Tarefa"
         app:showAsAction="ifRoom|withText" />
 
 </menu>

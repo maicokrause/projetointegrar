@@ -45,8 +45,10 @@ public class TarefaActivity extends Activity {
     private LinearLayout layoutCompleta;
     private Handler handler = new Handler();
     public void play(int i){
-        player= MediaPlayer.create(this,i);
-        player.start();
+        if(audios.length > 0) {
+            player = MediaPlayer.create(this, audios[i]);
+            player.start();
+        }
     }
 
     public void pause(){
@@ -100,7 +102,7 @@ public class TarefaActivity extends Activity {
 
             @Override
             public void onPageSelected(final int posicao) {
-                play(audios[posicao]);
+                play(posicao);
                 if (posicao > 0) {
                     anterior.setImageBitmap(bitmap[posicao - 1]);
                     posicaoAnterior = posicao - 1;
@@ -132,17 +134,12 @@ public class TarefaActivity extends Activity {
 
             }
         });
-        new Runnable() {
-            public void run() {
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                play(audios[0]);
-            }
-        }.run();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        play(0);
     }
 
     public void repetirTarefa(View v){
