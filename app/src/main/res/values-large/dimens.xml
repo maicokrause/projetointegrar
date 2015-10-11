@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="imageviewMiniatura_width">150dp</dimen>
+    <dimen name="imageviewMiniatura_height">150dp</dimen>
+    <dimen name="imageviewStar_width">40dp</dimen>
+    <dimen name="imageviewStar_height">150dp</dimen>
+    <dimen name="imageviewAgendaTitulo_height">25dp</dimen>
+    <dimen name="textSizeTitulo">40sp</dimen>
+</resources>
