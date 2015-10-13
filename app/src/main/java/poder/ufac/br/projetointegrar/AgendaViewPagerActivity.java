@@ -51,7 +51,7 @@ public class AgendaViewPagerActivity extends Activity {
         titulo.setShadowLayer(5, 10, 5, Color.BLACK);
         Typeface font = Typeface.createFromAsset(getAssets(), "snap_itc.ttf");
         titulo.setTypeface(font);
-        titulo.setText(Relogio.getDiaSemana(datas[8])+" "+ datas[8]);
+        titulo.setText(Relogio.getDiaSemana(datas[7])+" "+ datas[7]);
         ViewPager vp = (ViewPager) findViewById(R.id.viewpager);
 //        AgendaPagerAdapter adapter = new AgendaPagerAdapter(mContext,pages);
         vp.setAdapter(new AgendaPagerAdapter(mContext, datas));

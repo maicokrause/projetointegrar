@@ -28,7 +28,7 @@ public class AdapterListView extends BaseAdapter{
         this.context = context;
         //Objeto responsável por pegar o Layout do item.
         mInflater = LayoutInflater.from(context);
-        converterImagem();
+//        converterImagem();
     }
     public int getCount() {
         return itens.size();
@@ -46,7 +46,7 @@ public class AdapterListView extends BaseAdapter{
         ImageView imgIcon = ((ImageView) view.findViewById(R.id.imageViewCompromissoItem));
         Tarefa item = itens.get(position);
         txtTitle.setText(item.getNome());
-        imgIcon.setImageBitmap(bitmap[position]);
+        imgIcon.setImageResource(item.getMiniatura());
         return view;
     }
 
