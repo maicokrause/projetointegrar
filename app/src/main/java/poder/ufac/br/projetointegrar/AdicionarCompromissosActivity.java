@@ -7,10 +7,12 @@ import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -47,6 +50,10 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
     private Intent intent;
     private Tarefa t;
     private Date data;
+    private CheckBox[] diasSemana;
+    private int[] semana;
+    private boolean repetir = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -68,6 +75,7 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
         miniatura = (ImageView) findViewById(R.id.imageViewMiniaturaAdicionarCompromisso);
         nomeTarefa = (TextView) findViewById(R.id.textViewAdicionarCompromissoNomeTarefa);
         tp = (TimePicker) findViewById(R.id.timePickerAdicionarCompromisso);
+        carregaCheckBox();
         AdapterListView adapter = new AdapterListView(this, listaTarefas);
         listaTarefa = (ListView) findViewById(R.id.listViewAdicionarCompromissos);
         listaTarefa.setAdapter(adapter);
@@ -85,6 +93,7 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
 
         intent = getIntent();
         data = Relogio.zerarHoraDate(new Date(intent.getLongExtra("data", 0)));
+
         if(intent.hasExtra("compromisso")) {
             c = (Compromisso) intent.getSerializableExtra("compromisso");
             miniatura.setImageResource(c.getTarefa().getMiniatura());
@@ -93,8 +102,34 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
             tp.setCurrentMinute(Integer.parseInt(c.getHorario().substring(3, 5)));
             t = c.getTarefa();
             data = Relogio.zerarHoraDate(c.getData());
+            if(c.getRepetir() == 1) {
+                for (int i : c.getDiasSemana()) {
+                    switch (i) {
+                        case Calendar.SUNDAY:
+                            diasSemana[0].setChecked(true);
+                            break;
+                        case Calendar.MONDAY:
+                            diasSemana[1].setChecked(true);
+                            break;
+                        case Calendar.TUESDAY:
+                            diasSemana[2].setChecked(true);
+                            break;
+                        case Calendar.WEDNESDAY:
+                            diasSemana[3].setChecked(true);
+                            break;
+                        case Calendar.THURSDAY:
+                            diasSemana[4].setChecked(true);
+                            break;
+                        case Calendar.FRIDAY:
+                            diasSemana[5].setChecked(true);
+                            break;
+                        case Calendar.SATURDAY:
+                            diasSemana[6].setChecked(true);
+                            break;
+                    }
+                }
+            }
         }
-
     }
 
     @Override
@@ -109,6 +144,8 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_adicionar_compromissos, menu);
+        if(!intent.hasExtra("compromisso"))
+            menu.findItem(R.id.itemMenuExcluirCompromisso).setVisible(false);
         return true;
     }
 
@@ -171,11 +208,23 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
                 c.setHorario(String.format("%02d", tp.getCurrentHour()) + ":" + String.format("%02d", tp.getCurrentMinute()));
                 c.setTarefa(t);
                 c.setStatus(0);
+                c.setDiasSemana(setDiasSemana());
+                if(repetir)
+                    c.setRepetir(1);
+                else
+                    c.setRepetir(0);
+                Log.i("Repetir:::::::::", c.getRepetir()+"");
                 compromissoDao.create(c);
             }else {
                 data = Relogio.zerarHoraDate(c.getData());
                 c.setHorario(String.format("%02d", tp.getCurrentHour()) + ":" + String.format("%02d", tp.getCurrentMinute()));
                 c.setTarefa(t);
+                c.setDiasSemana(setDiasSemana());
+                if(repetir)
+                    c.setRepetir(1);
+                else
+                    c.setRepetir(0);
+                Log.i("Repetir:::::::::", c.getRepetir()+"");
                 compromissoDao.update(c);
             }
         } catch (SQLException e) {
@@ -191,5 +240,29 @@ public class AdicionarCompromissosActivity extends ActionBarActivity {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void carregaCheckBox(){
+        CheckBox[] diasSemana =  {
+                (CheckBox) findViewById(R.id.checkBoxDom),
+                (CheckBox) findViewById(R.id.checkBoxSeg),
+                (CheckBox) findViewById(R.id.checkBoxTer),
+                (CheckBox) findViewById(R.id.checkBoxQua),
+                (CheckBox) findViewById(R.id.checkBoxQui),
+                (CheckBox) findViewById(R.id.checkBoxSex),
+                (CheckBox) findViewById(R.id.checkBoxSab),
+        };
+        this.diasSemana = diasSemana;
+    }
+
+    private int[] setDiasSemana(){
+        semana = new int[7];
+        for(int i=0; i<7; i++){
+            if(diasSemana[i].isChecked()) {
+                repetir = true;
+                semana[i] = i+1;
+            }
+        }
+        return semana;
     }
 }

@@ -16,8 +16,12 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.j256.ormlite.stmt.PreparedQuery;
+import com.j256.ormlite.stmt.QueryBuilder;
+
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -59,19 +63,64 @@ public class ListarCompromissoActivity extends ActionBarActivity {
         try {
             compromissoDao = new CompromissoDao(dh.getConnectionSource());
             tdao = new TarefaDao(dh.getConnectionSource());
+            Date dataAgenda = Relogio.zerarHoraDate(new Date(getIntent().getLongExtra("data", 0)));
+//            Map<String, Object> values = new HashMap<String, Object>();
+//            values.put("data", Relogio.zerarHoraDate(new Date(getIntent().getLongExtra("data", 0))));
+//            listaCompromissos = compromissoDao.queryForFieldValues(values);
+//            for(Compromisso c : listaCompromissos){
+//                c.setTarefa(tdao.queryForId(Integer.parseInt(c.getTarefa().getId().toString())));
+//            }
+            QueryBuilder<Compromisso, Integer> queryBuilder = compromissoDao.queryBuilder();
+            queryBuilder.where().eq("data", dataAgenda).or().eq("repetir", 1);
+            PreparedQuery<Compromisso> query = queryBuilder.prepare();
+            listaCompromissos = compromissoDao.query(query);
 
-//            QueryBuilder<Compromisso, Integer> queryBuilder = compromissoDao.queryBuilder();
-//
-//            queryBuilder.where().eq("data", new Date(getIntent().getLongExtra("data", 0)));
-//            PreparedQuery<Compromisso> query = queryBuilder.prepare();
-//
-//            listaCompromissos = compromissoDao.query(query);
-            Map<String, Object> values = new HashMap<String, Object>();
-            values.put("data", Relogio.zerarHoraDate(new Date(getIntent().getLongExtra("data", 0))));
-            listaCompromissos = compromissoDao.queryForFieldValues(values);
+            List<Compromisso> lc = new ArrayList<Compromisso>();
+            List<Compromisso> lcCompletos = new ArrayList<Compromisso>();
             for(Compromisso c : listaCompromissos){
-                c.setTarefa(tdao.queryForId(Integer.parseInt(c.getTarefa().getId().toString())));
+                if(c.getRepetir() == 1){        //Se repetir
+                    if(Relogio.comparaData(c.getData(), dataAgenda)){//se a data for o dia atual
+                        if (c.getTarefa() != null)
+                            c.setTarefa(tdao.queryForId(Integer.parseInt(c.getTarefa().getId().toString())));
+                        if(c.getStatus() == 1)
+                            lcCompletos.add(c);
+                        else
+                            lc.add(c);
+                    }else {       //se nao for a data atual, verificar se é o dia da semana
+                        for (int i = 0; i < c.getDiasSemana().length; i++) {
+                            if (c.getDiasSemana()[i] == Relogio.getDayOfWeek(dataAgenda)) {
+                                if (c.getTarefa() != null)
+                                    c.setTarefa(tdao.queryForId(Integer.parseInt(c.getTarefa().getId().toString())));
+                                if(c.getStatus() == 1)
+                                    lcCompletos.add(c);
+                                else
+                                    lc.add(c);
+                            }
+                        }
+                    }
+                }else {
+                    if (c.getTarefa() != null)
+                        c.setTarefa(tdao.queryForId(Integer.parseInt(c.getTarefa().getId().toString())));
+                    if(c.getStatus() == 1)
+                        lcCompletos.add(c);
+                    else
+                        lc.add(c);
+                }
             }
+
+            listaCompromissos = lcCompletos;
+            for (Compromisso c: lc) {
+                boolean diferente = true;
+                for (Compromisso o: lcCompletos) {
+                    if(c.getHorario().equals(o.getHorario()) && c.getTarefa().getId() == o.getTarefa().getId()){
+                        diferente = false;
+                        break;
+                    }
+                }
+                if(diferente)
+                    listaCompromissos.add(c);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

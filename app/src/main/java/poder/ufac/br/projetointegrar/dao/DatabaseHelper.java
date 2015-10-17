@@ -10,6 +10,7 @@ import com.j256.ormlite.table.TableUtils;
 import java.sql.SQLException;
 
 import poder.ufac.br.projetointegrar.cdp.Compromisso;
+import poder.ufac.br.projetointegrar.cdp.Settings;
 import poder.ufac.br.projetointegrar.cdp.Tarefa;
 
 
@@ -21,12 +22,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		super(context, databaseName, null, databaseVersion);
 	}
 	
-	
 	@Override
 	public void onCreate(SQLiteDatabase sd, ConnectionSource cs) {
 		try {
 			TableUtils.createTable(cs, Compromisso.class);
 			TableUtils.createTable(cs, Tarefa.class);
+			TableUtils.createTable(cs, Settings.class);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
@@ -37,14 +38,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 		try {
 			TableUtils.dropTable(cs, Compromisso.class, true);
 			TableUtils.dropTable(cs, Tarefa.class, true);
+			TableUtils.dropTable(cs, Settings.class, true);
 			onCreate(sd, cs);
 		}
 		catch(SQLException e) {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
 	@Override
 	public void close(){
 		super.close();

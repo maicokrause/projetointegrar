@@ -61,6 +61,64 @@
 
         <LinearLayout
             android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:weightSum="8">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Repetir"
+                android:id="@+id/textView4"
+                android:layout_gravity="center_horizontal" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Domingo"
+                android:id="@+id/checkBoxDom" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Segunda"
+                android:id="@+id/checkBoxSeg" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Terça"
+                android:id="@+id/checkBoxTer" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quarta"
+                android:id="@+id/checkBoxQua" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quinta"
+                android:id="@+id/checkBoxQui" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sexta"
+                android:id="@+id/checkBoxSex" />
+
+            <CheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sábado"
+                android:id="@+id/checkBoxSab" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3">
@@ -71,14 +129,14 @@
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Selecione a tarefa"
                 android:id="@+id/textView2"
-                android:layout_gravity="center_horizontal"
-                android:padding="10dp" />
+                android:layout_gravity="center_horizontal" />
 
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/listViewAdicionarCompromissos" />
         </LinearLayout>
+
     </LinearLayout>
 
 </RelativeLayout>

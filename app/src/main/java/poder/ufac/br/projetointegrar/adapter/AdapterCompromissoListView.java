@@ -38,6 +38,9 @@ public class AdapterCompromissoListView extends BaseAdapter{
         mInflater = LayoutInflater.from(context);
         converterImagem();
     }
+    public List<Compromisso> getLista(){
+        return itens;
+    }
     public int getCount() {
         return itens.size();
     }
@@ -59,10 +62,10 @@ public class AdapterCompromissoListView extends BaseAdapter{
 //            nomeTarefa.setText(item.getTarefa().getNome());
 //            horario.setText(item.getHorario());
             int horas = Integer.parseInt(item.getHorario().substring(0,2)+item.getHorario().substring(3,5));
-            if(horas < 1230){
+            if(horas < 1200){
                 periodo.setImageBitmap(bitmapIcones[0]);
             }else{
-                if (horas >= 1230 && horas < 1800 ){
+                if (horas >= 1200 && horas < 1800 ){
                     periodo.setImageBitmap(bitmapIcones[1]);
                 }else{
                     periodo.setImageBitmap(bitmapIcones[2]);
@@ -78,10 +81,10 @@ public class AdapterCompromissoListView extends BaseAdapter{
 //            nomeTarefaCompleto.setText(item.getTarefa().getNome());
 //            horarioCompleto.setText(item.getHorario());
             int horas = Integer.parseInt(item.getHorario().substring(0,2)+item.getHorario().substring(3,5));
-            if(horas < 1230){
+            if(horas < 1200){
                 periodoCompleto.setImageBitmap(bitmapIcones[0]);
             }else{
-                if (horas >= 1230 && horas < 1800 ){
+                if (horas >= 1200 && horas < 1800 ){
                     periodoCompleto.setImageBitmap(bitmapIcones[1]);
                 }else{
                     periodoCompleto.setImageBitmap(bitmapIcones[2]);

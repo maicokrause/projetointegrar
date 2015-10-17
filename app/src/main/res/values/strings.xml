@@ -7,9 +7,9 @@
     <string name="title_activity_speech">SpeechActivity</string>
     <string name="title_activity_teste_sqlite">TesteSQLiteActivity</string>
     <string name="title_activity_study_list">StudyListActivity</string>
-    <string name="title_activity_adicionar_compromisso">AdicionarCompromissoActivity</string>
-    <string name="title_activity_adicionar_compromissos">AdicionarCompromissosActivity</string>
-    <string name="title_activity_calendario">CalendarioActivity</string>
+    <string name="title_activity_adicionar_compromisso">Compromissos</string>
+    <string name="title_activity_adicionar_compromissos">Adicionar Tarefa</string>
+    <string name="title_activity_calendario">Calendário</string>
     <string name="title_activity_agenda">AgendaActivity</string>
     <string name="title_activity_agente_view_pager">AgenteViewPagerActivity</string>
 </resources>

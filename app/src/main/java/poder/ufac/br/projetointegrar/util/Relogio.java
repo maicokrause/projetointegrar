@@ -123,12 +123,23 @@ public class Relogio {
 	      
 	   return maxHora.getTime();
 	}
+
+	public static boolean comparaData(Date data1, Date data2){
+		return converteParaString(data1).equals(converteParaString(data2));
+	}
+
 	public static boolean isSabadoOuDomingo(Date data) throws ParseException { 
 		Calendar cal=Calendar.getInstance();
 		DateFormat df = new SimpleDateFormat("dd/MM/yyyy"); 
 	    cal.setTime(data);  
 	    int diaSemana = cal.get(Calendar.DAY_OF_WEEK);  
 	    return diaSemana == Calendar.SATURDAY || diaSemana == Calendar.SUNDAY;  
+	}
+
+	public static int getDayOfWeek(Date data){
+		Calendar cal=Calendar.getInstance();
+		cal.setTime(data);
+		return cal.get(Calendar.DAY_OF_WEEK);
 	}
 
 	public static String getDiaSemana(Date data){
@@ -146,10 +157,25 @@ public class Relogio {
 			default: return "";
 		}
 	}
+
 	public static String getDiaSemana(String data){
 		Calendar cal=Calendar.getInstance();
 		cal.setTime(dataStr(data));
 		int i = cal.get(Calendar.DAY_OF_WEEK);
+		switch (i) {
+			case Calendar.MONDAY : return "Segunda-Feira";
+			case Calendar.TUESDAY : return "Terça-Feira";
+			case Calendar.WEDNESDAY : return "Quarta-Feira";
+			case Calendar.THURSDAY : return "Quinta-Feira";
+			case Calendar.FRIDAY : return "Sexta-Feira";
+			case Calendar.SATURDAY : return "Sábado";
+			case Calendar.SUNDAY : return "Domingo";
+			default: return "";
+		}
+	}
+
+	public static String getDiaSemana(int i){
+		Calendar cal=Calendar.getInstance();
 		switch (i) {
 			case Calendar.MONDAY : return "Segunda-Feira";
 			case Calendar.TUESDAY : return "Terça-Feira";

@@ -33,7 +33,7 @@ public class Tarefas {
     public static int[] getListaTarefas(){
         int [] lista = {ESCOVAR_DENTES, NA_ESCOLA, AO_ACORDAR,DESPIR_FEMININO,VESTIR_FEMINNO,
                 HORA_DE_DORMIR, IRMAOZINHO, FERIAS_ESCOLARES, CUSPIR, MORDER, SE_JOGAR_NO_CHAO,
-                BANHEIRO_FEMININO, BANHEIRO_MASCULINO, /*BANHO_FEMININO, BANHO_MASCULINO,*/
+                BANHEIRO_FEMININO, BANHEIRO_MASCULINO, BANHO_FEMININO, BANHO_MASCULINO,
                 CORTANDO_CABELO, CORTANDO_UNHAS, LAVAR_MAOS};
         return lista;
     }
@@ -68,7 +68,7 @@ public class Tarefas {
                     0
             );
             case DESPIR_FEMININO: return new Tarefa(
-                    "Despir",
+                    "Despir Feminino",
                     despirFemininoImagens,
                     despirFemininoAudio,
                     R.drawable.despir_feminino_titulo,
@@ -77,7 +77,7 @@ public class Tarefas {
                     0
             );
             case VESTIR_FEMINNO: return new Tarefa(
-                    "Vestir",
+                    "Vestir Feminino",
                     vestirFemininoImagens,
                     vestirFemininoAudio,
                     R.drawable.vestir_feminino_titulo,
@@ -140,7 +140,7 @@ public class Tarefas {
                     0
             );
             case BANHEIRO_FEMININO: return new Tarefa(
-                    "Banheiro",
+                    "Banheiro Feminino",
                     banheiroFemininoImagens,
                     banheiroFemininoAudio,
                     R.drawable.banheiro_feminino_titulo,
@@ -149,7 +149,7 @@ public class Tarefas {
                     0
             );
             case BANHEIRO_MASCULINO: return new Tarefa(
-                    "Banheiro",
+                    "Banheiro Masculino",
                     banheiroMasculinoImagens,
                     banheiroMasculinoAudio,
                     R.drawable.banheiro_masculino_titulo,
@@ -158,7 +158,7 @@ public class Tarefas {
                     0
             );
             case BANHO_FEMININO: return new Tarefa(
-                    "Banho",
+                    "Banho Feminino",
                     banhoFemininoImagens,
                     banhoFemininoAudio,
                     R.drawable.banho_feminino_titulo,
@@ -167,11 +167,11 @@ public class Tarefas {
                     0
             );
             case BANHO_MASCULINO: return new Tarefa(
-                    "Banho",
+                    "Banho Masculino",
                     banhoMasculinoImagens,
                     banhoMasculinoAudio,
                     R.drawable.banho_masculino_titulo,
-                    R.drawable.banho_masculino_titulo,
+                    R.drawable.banho_masculino_icone,
                     HIGIENE,
                     0
             );
@@ -346,9 +346,9 @@ public class Tarefas {
     };
 
     public static final int[] banhoFemininoImagens = {
-//            R.drawable.banho_feminino_01, R.drawable.banho_feminino_02, R.drawable.banho_feminino_03, R.drawable.banho_feminino_04,
-//            R.drawable.banho_feminino_05, R.drawable.banho_feminino_06, R.drawable.banho_feminino_07, R.drawable.banho_feminino_08,
-//            R.drawable.banho_feminino_09, R.drawable.banho_feminino_10, R.drawable.banho_feminino_11, R.drawable.banho_feminino_12
+            R.drawable.banho_feminino_01, R.drawable.banho_feminino_02, R.drawable.banho_feminino_03, R.drawable.banho_feminino_04,
+            R.drawable.banho_feminino_05, R.drawable.banho_feminino_06, R.drawable.banho_feminino_07, R.drawable.banho_feminino_08,
+            R.drawable.banho_feminino_09, R.drawable.banho_feminino_10, R.drawable.banho_feminino_11, R.drawable.banho_feminino_12
     };
 
     public static final int[] banhoFemininoAudio = {
@@ -358,15 +358,15 @@ public class Tarefas {
     };
 
     public static final int[] banhoMasculinoImagens = {
-//            R.drawable.banho_masculino_01, R.drawable.banho_masculino_02, R.drawable.banho_masculino_03, R.drawable.banho_masculino_04,
-//            R.drawable.banho_masculino_05, R.drawable.banho_masculino_06, R.drawable.banho_masculino_07, R.drawable.banho_masculino_08,
-//            R.drawable.banho_masculino_09, R.drawable.banho_masculino_10, R.drawable.banho_masculino_11, R.drawable.banho_masculino_12
+            R.drawable.banho_masculino_01, R.drawable.banho_masculino_02, R.drawable.banho_masculino_03, R.drawable.banho_masculino_04,
+            R.drawable.banho_masculino_05, R.drawable.banho_masculino_06, R.drawable.banho_masculino_07, R.drawable.banho_masculino_08,
+            R.drawable.banho_masculino_09, R.drawable.banho_masculino_10, R.drawable.banho_masculino_11, R.drawable.banho_masculino_12
     };
 
     public static final int[] banhoMasculinoAudio = {
             R.raw.banho_masculino_01, R.raw.banho_masculino_02, R.raw.banho_masculino_03, R.raw.banho_masculino_04, R.raw.banho_masculino_05,
             R.raw.banho_masculino_06, R.raw.banho_masculino_07, R.raw.banho_masculino_08, R.raw.banho_masculino_09, R.raw.banho_masculino_10,
-            R.raw.banho_masculino_10, R.raw.banho_masculino_11, R.raw.banho_masculino_12
+            R.raw.banho_masculino_11, R.raw.banho_masculino_12
     };
 
     public static final int[] cortandoCabeloImagens = {

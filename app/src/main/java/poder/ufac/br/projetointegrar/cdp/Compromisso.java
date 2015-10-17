@@ -2,10 +2,14 @@ package poder.ufac.br.projetointegrar.cdp;
 
 import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.field.ForeignCollectionField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
+import poder.ufac.br.projetointegrar.dao.ArrayPersister;
 
 /**
  * Created by Levi Cacau on 05/10/2015.
@@ -18,6 +22,13 @@ public class Compromisso implements Serializable {
 
     @DatabaseField
     private int status;
+
+    @DatabaseField
+    private int repetir;
+
+    @DatabaseField(dataType= DataType.SERIALIZABLE)
+
+    private int[] diasSemana;
 
     @DatabaseField
     private String horario;
@@ -74,4 +85,20 @@ public class Compromisso implements Serializable {
     public void setTarefa(Tarefa tarefa) {
         this.tarefa = tarefa;
     }
+
+    public int getRepetir() {
+        return repetir;
+    }
+
+    public void setRepetir(int repetir) {
+        this.repetir = repetir;
+    }
+    public int[] getDiasSemana() {
+        return diasSemana;
+    }
+
+    public void setDiasSemana(int[] diasSemana) {
+        this.diasSemana = diasSemana;
+    }
+
 }

@@ -36,26 +36,36 @@ public class AgendaViewPagerActivity extends Activity {
     private List<Compromisso> listaCompromissos;
     private TextView titulo;
     private String[] datas;
+    private int currentItem = 7;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agenda_view_pager);
         mContext = this;
-
-        Vector<View> pages = new Vector<View>();
-
         datas = new String[15];
         inicializaDatas();
+
+        intent = getIntent();
+        if(intent.hasExtra("data")){
+            String d = Relogio.converteParaString(new Date(intent.getLongExtra("data",0)));
+            for(int i = -7; i< 7; i++){
+                if(datas[i+7].equals(d)){
+                    currentItem = i+7;
+                    break;
+                }
+            }
+        }
+
         titulo = (TextView) findViewById(R.id.textViewTituloAgendaViewPager);
         titulo.setShadowLayer(5, 10, 5, Color.BLACK);
         Typeface font = Typeface.createFromAsset(getAssets(), "snap_itc.ttf");
         titulo.setTypeface(font);
-        titulo.setText(Relogio.getDiaSemana(datas[7])+" "+ datas[7]);
+        titulo.setText(Relogio.getDiaSemana(datas[currentItem])+" "+ datas[currentItem]);
         ViewPager vp = (ViewPager) findViewById(R.id.viewpager);
 //        AgendaPagerAdapter adapter = new AgendaPagerAdapter(mContext,pages);
         vp.setAdapter(new AgendaPagerAdapter(mContext, datas));
-        vp.setCurrentItem(7);
+        vp.setCurrentItem(currentItem);
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -73,8 +83,6 @@ public class AgendaViewPagerActivity extends Activity {
 
             }
         });
-
-
 
     }
 

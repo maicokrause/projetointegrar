@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.sql.SQLException;
+import java.util.Date;
 
 import poder.ufac.br.projetointegrar.adapter.AdapterImg;
 import poder.ufac.br.projetointegrar.cdp.Compromisso;
@@ -26,6 +27,7 @@ import poder.ufac.br.projetointegrar.dao.CompromissoDao;
 import poder.ufac.br.projetointegrar.dao.DatabaseHelper;
 import poder.ufac.br.projetointegrar.dao.TarefaDao;
 import poder.ufac.br.projetointegrar.util.GestureHelper;
+import poder.ufac.br.projetointegrar.util.Relogio;
 
 public class TarefaActivity extends Activity {
     MediaPlayer player;
@@ -44,6 +46,9 @@ public class TarefaActivity extends Activity {
     private ViewPager vp;
     private LinearLayout layoutCompleta;
     private Handler handler = new Handler();
+    private Date data;
+
+
     public void play(int i){
         if(audios.length > 0) {
             player = MediaPlayer.create(this, audios[i]);
@@ -58,6 +63,7 @@ public class TarefaActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         intent = getIntent();
         compromisso = (Compromisso) intent.getSerializableExtra("compromisso");
+        data = Relogio.zerarHoraDate(new Date(intent.getLongExtra("data",0)));
         imagens = compromisso.getTarefa().getImagens();
         audios = compromisso.getTarefa().getAudio();
         converterImagem();
@@ -113,7 +119,10 @@ public class TarefaActivity extends Activity {
                         if (posicao == bitmap.length - 1) {
                             proximo.setImageBitmap(BitmapFactory.decodeResource(getResources(), 0));
                             posicaoProximo = -1;
-                            tarefaCompleta();
+                            if(Relogio.comparaData(new Date(), data))
+                                tarefaCompleta();
+                            else
+                                tarefaVisualizada();
                         }
                     }
                 } else {
@@ -149,6 +158,7 @@ public class TarefaActivity extends Activity {
 
     public void finalizarTarefa(View v){
         intent = new Intent(this, AgendaViewPagerActivity.class);
+        intent.putExtra("data", data.getTime());
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
@@ -156,6 +166,31 @@ public class TarefaActivity extends Activity {
     public void tarefaCompleta(){
         Thread thread = new Thread(run);
         thread.start();
+    }
+
+    private void tarefaVisualizada(){
+        new Thread(
+                new Runnable() {
+
+                    @Override
+                    public void run() {
+                        Log.i("ProjetoIntegrar", "working..");
+                        try {
+                            Thread.sleep(2000);
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                        layoutCompleta = (LinearLayout) findViewById(R.id.layoutTarefaCompleta);
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                layoutCompleta.setVisibility(View.VISIBLE);
+                            }
+                        });
+                    }
+                }
+        ).start();
     }
 
     private Runnable run = new Runnable() {
@@ -173,8 +208,17 @@ public class TarefaActivity extends Activity {
             DatabaseHelper dh = new DatabaseHelper(TarefaActivity.this);
             try {
                 CompromissoDao  compromissoDao = new CompromissoDao(dh.getConnectionSource());
-                compromisso.setStatus(1);
-                compromissoDao.update(compromisso);
+
+                if(Relogio.comparaData(data, compromisso.getData())) {
+                    if(compromisso.getRepetir() == 0) {
+                        compromisso.setStatus(1);
+                        compromissoDao.update(compromisso);
+                    }else{
+                        compromissoDao.create(setaCompromisso());
+                    }
+                }else{
+                    compromissoDao.create(setaCompromisso());
+                }
             } catch (SQLException e) {e.printStackTrace();}
             layoutCompleta = (LinearLayout) findViewById(R.id.layoutTarefaCompleta);
             handler.post(new Runnable() {
@@ -185,6 +229,17 @@ public class TarefaActivity extends Activity {
             });
         }
     };
+
+
+    public Compromisso setaCompromisso(){
+        Compromisso c = new Compromisso();
+        c.setRepetir(0);
+        c.setData(data);
+        c.setTarefa(compromisso.getTarefa());
+        c.setStatus(1);
+        c.setHorario(compromisso.getHorario());
+        return c;
+    }
 
     public void converterImagem(){
         bitmap = new Bitmap[imagens.length];

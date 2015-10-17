@@ -6,7 +6,6 @@ import com.j256.ormlite.support.ConnectionSource;
 import java.sql.SQLException;
 
 import poder.ufac.br.projetointegrar.cdp.Compromisso;
-import poder.ufac.br.projetointegrar.cdp.Discipline;
 
 public class CompromissoDao extends BaseDaoImpl<Compromisso, Integer> {
 	public CompromissoDao(ConnectionSource cs) throws SQLException{
