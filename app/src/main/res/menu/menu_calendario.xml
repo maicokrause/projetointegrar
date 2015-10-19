@@ -5,7 +5,6 @@
 
     <item
         android:id="@+id/itemMenuCalendarioSelecionarDia"
-        android:icon="@drawable/icon_ok"
         android:title="Selecionar dia"
         app:showAsAction="ifRoom|withText" />
 </menu>

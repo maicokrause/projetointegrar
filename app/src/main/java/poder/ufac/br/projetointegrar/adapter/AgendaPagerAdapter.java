@@ -103,7 +103,7 @@ public class AgendaPagerAdapter extends PagerAdapter {
         return 0;
     }
 
-    private void selecionaDia(String data) {
+    private void selecionaDia(final String data) {
         dataAgenda = Relogio.dataStr(data);
 //        Toast.makeText(this, "Data: " +dataAgenda.getTime(), Toast.LENGTH_SHORT).show();
 //        Log.i("Data", dataAgenda.getTime() + "");
@@ -186,7 +186,8 @@ public class AgendaPagerAdapter extends PagerAdapter {
                 Tarefa t = (Tarefa) c.getTarefa();
 //        Toast.makeText(this, "Tarefa: "+t.getNome(), Toast.LENGTH_SHORT).show();
                 intent.putExtra("compromisso", c);
-                intent.putExtra("data", new Date(dataAgenda.getTime()+((1000*24*60*60)*-1)).getTime()); //pega a data do adapter e subtrai 1
+                intent.putExtra("data", Relogio.dataStr(data).getTime());
+//                Log.i("Log", "Data "+data);
                 mContext.startActivity(intent);
             }
         });

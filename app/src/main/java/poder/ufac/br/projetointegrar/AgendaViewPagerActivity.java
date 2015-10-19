@@ -37,6 +37,9 @@ public class AgendaViewPagerActivity extends Activity {
     private TextView titulo;
     private String[] datas;
     private int currentItem = 7;
+    private AgendaPagerAdapter agendaAdapter;
+    private ViewPager vp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -49,7 +52,9 @@ public class AgendaViewPagerActivity extends Activity {
         intent = getIntent();
         if(intent.hasExtra("data")){
             String d = Relogio.converteParaString(new Date(intent.getLongExtra("data",0)));
-            for(int i = -7; i< 7; i++){
+//            Log.i("Log", "Data tarefa"+d);
+            for(int i = -7; i<= 7; i++){
+//                Log.i("Log", "Array Datas i= "+i+" i+7= "+(i+7)+" data= "+datas[i+7]);
                 if(datas[i+7].equals(d)){
                     currentItem = i+7;
                     break;
@@ -61,16 +66,18 @@ public class AgendaViewPagerActivity extends Activity {
         titulo.setShadowLayer(5, 10, 5, Color.BLACK);
         Typeface font = Typeface.createFromAsset(getAssets(), "snap_itc.ttf");
         titulo.setTypeface(font);
-        titulo.setText(Relogio.getDiaSemana(datas[currentItem])+" "+ datas[currentItem]);
-        ViewPager vp = (ViewPager) findViewById(R.id.viewpager);
+        titulo.setText(Relogio.getDiaSemana(datas[currentItem]) + " " + datas[currentItem]);
+        vp = (ViewPager) findViewById(R.id.viewpager);
 //        AgendaPagerAdapter adapter = new AgendaPagerAdapter(mContext,pages);
-        vp.setAdapter(new AgendaPagerAdapter(mContext, datas));
+        agendaAdapter = new AgendaPagerAdapter(mContext, datas);
+        vp.setAdapter(agendaAdapter);
         vp.setCurrentItem(currentItem);
         vp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
             public void onPageSelected(final int posicao) {
                 titulo.setText(Relogio.getDiaSemana(datas[posicao])+" "+ datas[posicao]);
+
             }
 
             @Override
@@ -85,6 +92,13 @@ public class AgendaViewPagerActivity extends Activity {
         });
 
     }
+
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+//        super.onRestoreInstanceState(savedInstanceState);
+//        agendaAdapter = new AgendaPagerAdapter(mContext, datas);
+//        vp.setAdapter(agendaAdapter);
+//    }
 
     private void inicializaDatas(){
         Date hoje = new Date();

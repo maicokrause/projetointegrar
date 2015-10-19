@@ -5,14 +5,12 @@
 
     <item
         android:id="@+id/itemMenuExcluirCompromisso"
-        android:icon="@drawable/icon_cancel"
         android:title="Excluir"
         app:showAsAction="ifRoom|withText" />
 
 
     <item
         android:id="@+id/itemMenuSalvarCompromisso"
-        android:icon="@drawable/icon_ok"
         android:title="Salvar"
         app:showAsAction="ifRoom|withText" />
 

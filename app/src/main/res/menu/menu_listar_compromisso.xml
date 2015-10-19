@@ -11,7 +11,6 @@
 
     <item
         android:id="@+id/itemMenuAdicionarCompromisso"
-        android:icon="@drawable/icon_plus"
         android:title="Adicionar Tarefa"
         app:showAsAction="ifRoom|withText" />
 
