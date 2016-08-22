@@ -22,21 +22,6 @@
                 android:id="@+id/layoutCompromisso"
                 android:weightSum="1">
 
-                <!--<TextView-->
-                    <!--android:id="@+id/textViewCompromissoNomeTarefaItem"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:gravity="center_vertical"-->
-                    <!--android:textColor="#FF000000"-->
-                    <!--android:text="Tarefa"-->
-                    <!--android:padding="5dp" />-->
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Horario"-->
-                    <!--android:id="@+id/textViewCompromissoHorarioItem"-->
-                    <!--android:padding="5dp" />-->
 
                 <LinearLayout
                     android:orientation="horizontal"
@@ -50,14 +35,15 @@
                         android:layout_height="@dimen/imageviewStar_height"
                         android:id="@+id/imageViewPeriodoCompromisso"
                         android:src="@drawable/titulo_manha"
-                        android:layout_marginRight="10dp" />
+                        android:layout_marginRight="3dp" />
 
                     <ImageView
                         android:id="@+id/imageViewCompromissoItem"
                         android:layout_width="@dimen/imageviewMiniatura_width"
                         android:layout_height="@dimen/imageviewMiniatura_width"
-                        android:padding="10dp"
-                        android:layout_alignParentLeft="true"/>
+                        android:layout_alignParentLeft="true"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -77,18 +63,6 @@
                 android:visibility="invisible"
                 android:weightSum="1">
 
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Tarefa"-->
-                    <!--android:id="@+id/textViewCompromissoNomeTarefaItemCompleto" />-->
-
-                <!--<TextView-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:text="Horario"-->
-                    <!--android:id="@+id/textViewCompromissoHorarioItemCompleto" />-->
-
                 <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="wrap_content"
@@ -96,38 +70,20 @@
                     android:weightSum="5"
                     android:layout_gravity="left">
 
-                    <!--<com.makeramen.roundedimageview.RoundedImageView-->
-                        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-                        <!--android:id="@+id/imageViewCompromissoItemCompleto"-->
-                        <!--android:layout_width="@dimen/imageviewMiniatura_width"-->
-                        <!--android:layout_height="@dimen/imageviewMiniatura_width"-->
-                        <!--android:layout_alignParentTop="true"-->
-                        <!--android:layout_alignParentBottom="true"-->
-                        <!--android:layout_alignParentRight="true"-->
-                        <!--android:layout_alignParentLeft="true"-->
-                        <!--android:layout_alignParentStart="true"-->
-                        <!--android:layout_alignParentEnd="true"-->
-                        <!--android:padding="10dp"-->
-                        <!--android:scaleType="center"-->
-                        <!--app:riv_corner_radius="30dip"-->
-                        <!--app:riv_border_width="3dip"-->
-                        <!--app:riv_oval="false"-->
-                        <!--app:riv_border_color="@color/border"-->
-                        <!--/>-->
-
                     <ImageView
                         android:id="@+id/imageViewCompromissoItemCompleto"
                         android:layout_width="@dimen/imageviewMiniatura_width"
                         android:layout_height="@dimen/imageviewMiniatura_width"
-                        android:padding="10dp"
-                        android:layout_gravity="left" />
+                        android:layout_gravity="left"
+                        android:paddingTop="10dp"
+                        android:paddingBottom="10dp" />
 
                     <ImageView
                         android:layout_width="@dimen/imageviewStar_width"
                         android:layout_height="@dimen/imageviewStar_height"
                         android:id="@+id/imageViewPeriodoCompromissoCompleto"
                         android:src="@drawable/titulo_manha"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginLeft="3dp"
                         android:visibility="visible" />
                 </LinearLayout>
             </LinearLayout>

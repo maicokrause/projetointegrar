@@ -1,8 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="poder.ufac.br.projetointegrar.AgendaActivity"
-    android:background="@drawable/background_blue_sky">
+    tools:context="poder.ufac.br.autismoprojetointegrar.AgendaActivity"
+    android:background="@drawable/tela_vazia">
 
     <LinearLayout
         android:orientation="horizontal"

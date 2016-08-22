@@ -4,4 +4,12 @@
     <dimen name="imageviewMiniatura_height">50dp</dimen>
     <dimen name="imageviewStar_width">15dp</dimen>
     <dimen name="imageviewStar_height">50dp</dimen>
+
+    <dimen name="botaoComecar_width">300dp</dimen>
+    <dimen name="botaoComecar_height">100dp</dimen>
+
+    <!--<dimen name="botaoCalendar_width">100dp</dimen>
+    <dimen name="botaoCalendar_height">100dp</dimen>-->
+    <dimen name="botaoCalendar_width">50dp</dimen>
+    <dimen name="botaoCalendar_height">50dp</dimen>
 </resources>

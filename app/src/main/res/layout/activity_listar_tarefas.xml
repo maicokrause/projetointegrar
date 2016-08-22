@@ -1,0 +1,64 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="poder.ufac.br.autismoprojetointegrar.ListarTarefasActivity"
+    android:background="@drawable/background_green_blue_sky">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Lista de tarefas"
+            android:textColor="#37ff00"
+            android:textSize="@dimen/textSizeTitulo"
+            android:id="@+id/textViewListarTarefasTitulo"
+            android:layout_gravity="center_horizontal" />
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/listViewListarTarefas"
+            android:layout_gravity="center_horizontal" />
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="@dimen/botao_width"
+        android:layout_height="@dimen/botao_height"
+        android:id="@+id/imageButton3"
+        android:src="@drawable/icon_back_page_button"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:onClick="voltarPaginaTarefa"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="false"
+        android:background="#00000000"
+        android:paddingBottom="3dp"
+        android:paddingRight="3dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="false" />
+
+    <FrameLayout
+        android:id="@+id/fl2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:visibility="gone" >
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleLarge"
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal" />
+    </FrameLayout>
+
+</RelativeLayout>

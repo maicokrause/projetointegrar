@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.cristina.autismoprojetointegrar.Main2Activity"
+    android:background="@drawable/tela_inicial">
+
+    <ImageButton
+        android:layout_width="@dimen/botao_width"
+        android:layout_height="@dimen/botao_height"
+        android:id="@+id/imageView"
+        android:src="@drawable/icon_configuracao_button"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:onClick="configuracoesActivity"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="#00000000"
+        android:paddingBottom="3dp"
+        android:paddingRight="3dp" />
+
+    <ImageButton
+        android:layout_width="@dimen/botaoComecar_width"
+        android:layout_height="@dimen/botaoComecar_height"
+        android:id="@+id/imageButtonTask"
+        android:onClick="comecarActivity"
+        android:src="@drawable/icon_comecar_button"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:layout_weight="1"
+        android:background="#00000000"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>

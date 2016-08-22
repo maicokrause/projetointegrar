@@ -1,21 +1,14 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="poder.ufac.br.projetointegrar.AdicionarCompromissosActivity"
-    android:background="@drawable/background_green_blue_sky">
+    tools:context="poder.ufac.br.autismoprojetointegrar.AdicionarCompromissosActivity"
+    android:background="@drawable/tela_vazia">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="5">
-
-        <ScrollView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/scrollView2" >
-
-        </ScrollView>
 
         <LinearLayout
             android:orientation="vertical"
@@ -59,63 +52,69 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:orientation="vertical"
+        <ScrollView
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:weightSum="8">
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView2" >
 
-            <TextView
+            <LinearLayout
+                android:orientation="vertical"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Repetir"
-                android:id="@+id/textView4"
-                android:layout_gravity="center_horizontal" />
+                android:layout_height="match_parent"
+                android:weightSum="8">
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Domingo"
-                android:id="@+id/checkBoxDom" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Repetir"
+                    android:id="@+id/textView4"
+                    android:layout_gravity="center_horizontal" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Segunda"
-                android:id="@+id/checkBoxSeg" />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Domingo"
+                    android:id="@+id/checkBoxDom" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Terça"
-                android:id="@+id/checkBoxTer" />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Segunda"
+                    android:id="@+id/checkBoxSeg" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quarta"
-                android:id="@+id/checkBoxQua" />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Terça"
+                    android:id="@+id/checkBoxTer" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Quinta"
-                android:id="@+id/checkBoxQui" />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quarta"
+                    android:id="@+id/checkBoxQua" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sexta"
-                android:id="@+id/checkBoxSex" />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quinta"
+                    android:id="@+id/checkBoxQui" />
 
-            <CheckBox
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Sábado"
-                android:id="@+id/checkBoxSab" />
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sexta"
+                    android:id="@+id/checkBoxSex" />
 
-        </LinearLayout>
+                <CheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Sábado"
+                    android:id="@+id/checkBoxSab" />
+
+            </LinearLayout>
+        </ScrollView>
 
         <LinearLayout
             android:orientation="vertical"

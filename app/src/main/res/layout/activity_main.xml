@@ -6,67 +6,84 @@
     android:orientation="vertical"
     android:background="@drawable/background_blue_sky">
 
-    <!--<android.support.v4.view.ViewPager-->
-        <!--android:id="@+id/viewPager"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content" />-->
-
-    <ImageView
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:id="@+id/tituloAplicativoImageView"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="0dp" />
-
-    <!--<ListView-->
-        <!--android:layout_width="280dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/tarefaListView"-->
-        <!--android:layout_alignParentLeft="true"-->
-        <!--android:layout_marginLeft="0dp"-->
-        <!--android:layout_below="@+id/tituloAplicativoImageView" />-->
-
-    <!--<ListView-->
-        <!--android:layout_width="280dp"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:id="@+id/tarefa2ListView"-->
-        <!--android:layout_toRightOf="@+id/tarefaListView"-->
-        <!--android:layout_below="@+id/tituloAplicativoImageView" />-->
-
-    <ImageView
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/icon_config"
-        android:onClick="calendarioActivity"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:weightSum="10">
 
-    <!--<com.makeramen.RoundedImageView-->
-        <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-        <!--android:id="@+id/rivImg"-->
-        <!--android:src="@drawable/icon_config"-->
-        <!--android:layout_width="50dp"-->
-        <!--android:layout_height="50dp"-->
-        <!--android:layout_marginRight="15dp"-->
-        <!--android:scaleType="fitCenter"-->
-        <!--app:riv_corner_radius="3dip"-->
-        <!--app:riv_border_width="2dip"-->
-        <!--app:riv_border_color="#bbb"-->
-        <!--app:riv_mutate_background="true"-->
-        <!--app:riv_tile_mode="repeat"-->
-        <!--app:riv_oval="true" />-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/tituloAplicativoImageView"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_weight="2" />
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:id="@+id/imageButtonTask"
-        android:onClick="abrirAgendaActivity"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/icon_task_button" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:weightSum="3"
+            android:layout_weight="6">
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageButtonTask"
+                android:onClick="abrirAgendaActivity"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/icon_task_button"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:layout_weight="1"
+                android:background="#00000000" />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageButtonComportamento"
+                android:onClick="abrirListaTarefasComportamentoActivity"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/icon_comportamento_button"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:layout_weight="1"
+                android:background="#00000000" />
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageButtonHigiene"
+                android:onClick="abrirListaTarefasHigieneActivity"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:src="@drawable/icon_higiene_button"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:layout_weight="1"
+                android:background="#00000000" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageButton
+        android:layout_width="@dimen/botao_width"
+        android:layout_height="@dimen/botao_height"
+        android:id="@+id/imageButton5"
+        android:src="@drawable/icon_back_page_button"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:onClick="voltarPaginaMain"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="false"
+        android:background="#00000000"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="false" />
 
 </RelativeLayout>

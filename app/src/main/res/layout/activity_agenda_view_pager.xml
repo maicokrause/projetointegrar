@@ -1,52 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@drawable/background_blue_sky">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="A light blue shadow."
-        android:textSize="@dimen/textSizeTitulo"
-        android:textColor="#37ff00"
-        android:id="@+id/textViewTituloAgendaViewPager"
-        />
-
     <LinearLayout
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="4">
-
-        <ImageView
-            android:layout_width="0dp"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/imageView9"
-            android:layout_weight="1" />
+            android:layout_gravity="center_horizontal"
+            android:text="A light blue shadow."
+            android:textSize="@dimen/textSizeTitulo"
+            android:textColor="#37ff00"
+            android:id="@+id/textViewTituloAgendaViewPager"
+            />
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/imageviewAgendaTitulo_height"
-            android:id="@+id/imageView7"
-            android:src="@drawable/titulo_fazer"
-            android:layout_weight="1" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="4">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="@dimen/imageviewAgendaTitulo_height"
-            android:id="@+id/imageView8"
-            android:src="@drawable/titulo_feito"
-            android:layout_weight="1" />
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageView9"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/imageviewAgendaTitulo_height"
+                android:id="@+id/imageView7"
+                android:src="@drawable/titulo_fazer"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/imageviewAgendaTitulo_height"
+                android:id="@+id/imageView8"
+                android:src="@drawable/titulo_feito"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="6">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageViewOntem"
+                android:layout_weight="1"
+                android:src="@drawable/icon_seta_ontem"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="false" />
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/viewpager"
+                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_weight="4" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/imageViewAmanha"
+                android:layout_weight="1"
+                android:scaleType="centerInside"
+                android:src="@drawable/icon_seta_amanha" />
+        </LinearLayout>
+
     </LinearLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
-        android:layout_height="match_parent"
-        android:layout_width="match_parent"
-        />
+    <ImageButton
+        android:layout_width="@dimen/botao_width"
+        android:layout_height="@dimen/botao_height"
+        android:id="@+id/imageButton2"
+        android:src="@drawable/icon_back_page_button"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:onClick="voltarPaginaAgenda"
+        android:layout_alignParentBottom="false"
+        android:layout_alignParentRight="false"
+        android:layout_alignParentEnd="false"
+        android:background="#00000000"
+        android:paddingBottom="3dp"
+        android:paddingRight="3dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="false" />
 
-</LinearLayout>
+    <FrameLayout
+        android:id="@+id/fl2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/progressBar1"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal" />
+
+    </FrameLayout>
+
+</RelativeLayout>

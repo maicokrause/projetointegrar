@@ -1,0 +1,137 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="poder.ufac.br.autismoprojetointegrar.ConfiguracoesActivity"
+    android:background="@drawable/tela_vazia">
+
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="start">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:layout_width="@dimen/botaoCalendar_width"
+                android:layout_height="@dimen/botaoCalendar_height"
+                android:id="@+id/imageButton"
+                android:onClick="calendarioActivity"
+                android:src="@drawable/icon_calendar_button"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:layout_weight="1"
+                android:background="#00000000"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignRight="@+id/imageButtonAudio"
+                android:layout_alignEnd="@+id/imageButtonAudio"
+                android:layout_column="1"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Configurar menu Meus Compromissos"
+                android:id="@+id/textView7"
+                android:layout_column="2" />
+
+
+            <ImageButton
+                android:layout_width="@dimen/botao_width"
+                android:layout_height="@dimen/botao_height"
+                android:id="@+id/imageButtonAudio"
+                android:src="@drawable/icon_audio_on_button"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:onClick="audioOnOff"
+                android:background="#00000000"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_column="3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ligar/Desligar som"
+                android:id="@+id/textView5"
+                android:layout_column="4" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:layout_width="@dimen/botao_width"
+                android:layout_height="@dimen/botao_height"
+                android:id="@+id/imageButtonInterrogacao"
+                android:src="@drawable/icon_interrogacao"
+                android:onClick="infoActivity"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:background="#00000000"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_column="1" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Como utilizar os desenhos roteirizados"
+                android:id="@+id/textView8"
+                android:layout_column="2" />
+
+            <ImageButton
+                android:layout_width="@dimen/botao_width"
+                android:layout_height="@dimen/botao_height"
+                android:id="@+id/imageButton7"
+                android:src="@drawable/icon_info_button"
+                android:onClick="infoActivity"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:background="#00000000"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_column="3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ligar/Desligar som"
+                android:id="@+id/textView9"
+                android:layout_column="4" />
+        </TableRow>
+
+      <!--  <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageButton
+                android:layout_width="@dimen/botao_width"
+                android:layout_height="@dimen/botao_height"
+                android:id="@+id/imageButton6"
+                android:src="@drawable/icon_back_page_button"
+                android:scaleType="centerInside"
+                android:adjustViewBounds="true"
+                android:onClick="voltarPaginaConfig"
+                android:background="#00000000"
+                android:paddingBottom="3dp"
+                android:paddingRight="3dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
+        </TableRow> -->
+    </TableLayout>
+</RelativeLayout>
